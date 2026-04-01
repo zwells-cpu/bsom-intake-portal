@@ -1,179 +1,201 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
 <title>BSOM Intake Portal</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800;1,9..40,400&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --bg: #080e1a;
-    --surface: #0d1526;
-    --surface2: #111d33;
-    --border: #1a2840;
-    --border2: #243450;
-    --text: #e2eaf8;
-    --muted: #94a3b8;
-    --dim: #4a607a;
-    --accent: #6366f1;
-    --accent2: #8b5cf6;
-    --green: #22c55e;
-    --yellow: #f59e0b;
-    --orange: #fb923c;
-    --red: #ef4444;
-  }
-  body { background: var(--bg); color: var(--text); font-family: "DM Sans", system-ui, sans-serif; min-height: 100vh; font-size: 14px; line-height: 1.5; }
-  input, select, textarea, button { outline: none; font-family: inherit; }
-  input::placeholder, textarea::placeholder { color: var(--dim); }
-  ::-webkit-scrollbar { width: 5px; height: 5px; }
-  ::-webkit-scrollbar-track { background: var(--bg); }
-  ::-webkit-scrollbar-thumb { background: var(--border2); border-radius: 4px; }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#080e1a;--surface:#0d1526;--surface2:#111d33;--surface3:#162038;
+  --border:#1a2840;--border2:#243450;
+  --text:#e2eaf8;--muted:#94a3b8;--dim:#4a607a;
+  --accent:#6366f1;--accent2:#8b5cf6;
+  --green:#22c55e;--yellow:#f59e0b;--orange:#fb923c;--red:#ef4444;
+  --sidebar-w:220px;
+}
+body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;min-height:100vh;font-size:14px;line-height:1.5;overflow-x:hidden}
+input,select,textarea,button{outline:none;font-family:inherit}
+input::placeholder,textarea::placeholder{color:var(--dim)}
+::-webkit-scrollbar{width:5px;height:5px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 
-  /* Nav */
-  .nav { border-bottom: 1px solid var(--border); padding: 0 32px; background: var(--surface); }
-  .nav-inner { max-width: 1300px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 16px; }
-  .nav-brand { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-  .nav-logo { width: 40px; height: 40px; border-radius: 10px; overflow: hidden; background: white; display: flex; align-items: center; justify-content: center; }
-  .nav-logo img { width: 40px; height: 40px; object-fit: contain; }
-  .nav-title { font-weight: 800; font-size: 14.5px; letter-spacing: -0.01em; }
-  .nav-sub { font-size: 11px; color: var(--dim); font-weight: 500; }
-  .nav-tabs { display: flex; gap: 2px; }
-  .nav-tab { background: transparent; border: 1px solid transparent; border-radius: 8px; padding: 7px 15px; color: var(--dim); font-size: 13px; font-weight: 500; cursor: pointer; transition: all 0.15s; white-space: nowrap; }
-  .nav-tab:hover { color: var(--muted); }
-  .nav-tab.active { background: var(--surface2); border-color: var(--border2); color: var(--text); font-weight: 600; }
-  .nav-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-  .badge-active { background: #22c55e18; color: var(--green); border: 1px solid #22c55e30; border-radius: 20px; padding: 4px 13px; font-size: 12px; font-weight: 700; white-space: nowrap; }
-  .btn-refresh { background: transparent; border: 1px solid var(--border2); border-radius: 8px; padding: 6px 13px; color: var(--muted); font-size: 12px; cursor: pointer; font-weight: 500; transition: all 0.15s; }
-  .btn-refresh:hover { border-color: var(--accent); color: var(--accent); }
-  .role-select { background: var(--surface2); border: 1px solid var(--border2); border-radius: 8px; padding: 5px 10px; color: var(--text); font-size: 12px; font-weight: 600; cursor: pointer; }
+/* ── HOME SCREEN ── */
+.home-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 20% 50%,#6366f108 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#8b5cf608 0%,transparent 60%)}
+.home-logo{width:90px;height:90px;border-radius:20px;overflow:hidden;background:white;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 0 1px #ffffff10,0 20px 60px rgba(0,0,0,0.4)}
+.home-logo img{width:90px;height:90px;object-fit:contain}
+.home-title{font-size:28px;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px;text-align:center}
+.home-sub{color:var(--muted);font-size:13px;margin-bottom:48px;text-align:center}
+.module-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;max-width:780px;width:100%}
+.module-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:28px 24px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden}
+.module-card::before{content:"";position:absolute;inset:0;background:linear-gradient(135deg,var(--card-color,#6366f1)08,transparent 60%);pointer-events:none}
+.module-card:hover{border-color:var(--card-color,var(--accent));transform:translateY(-2px);box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+.module-icon{font-size:28px;margin-bottom:14px}
+.module-name{font-weight:800;font-size:15px;margin-bottom:5px;letter-spacing:-0.01em}
+.module-desc{font-size:12px;color:var(--muted);line-height:1.5}
+.module-arrow{position:absolute;top:20px;right:20px;color:var(--dim);font-size:18px;transition:all 0.2s}
+.module-card:hover .module-arrow{color:var(--card-color,var(--accent));transform:translateX(2px)}
 
-  .main { max-width: 1300px; margin: 0 auto; padding: 28px 32px; }
+/* ── APP SHELL ── */
+.shell{display:flex;min-height:100vh}
+.sidebar{width:var(--sidebar-w);background:var(--surface);border-right:1px solid var(--border);display:flex;flex-direction:column;flex-shrink:0;position:fixed;top:0;left:0;bottom:0;z-index:50}
+.sidebar-header{padding:16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px}
+.sidebar-logo{width:34px;height:34px;border-radius:8px;overflow:hidden;background:white;flex-shrink:0}
+.sidebar-logo img{width:34px;height:34px;object-fit:contain}
+.sidebar-title{font-weight:800;font-size:12.5px;letter-spacing:-0.01em;line-height:1.3}
+.sidebar-sub{font-size:10px;color:var(--dim)}
+.sidebar-nav{flex:1;padding:12px 10px;overflow-y:auto}
+.nav-section-label{font-size:10px;font-weight:700;color:var(--dim);letter-spacing:0.1em;text-transform:uppercase;padding:12px 8px 6px}
+.nav-item{display:flex;align-items:center;gap:10px;padding:9px 10px;border-radius:9px;cursor:pointer;transition:all 0.15s;color:var(--muted);font-size:13px;font-weight:500;border:1px solid transparent;margin-bottom:2px}
+.nav-item:hover{background:var(--surface2);color:var(--text)}
+.nav-item.active{background:var(--surface2);border-color:var(--border2);color:var(--text);font-weight:600}
+.nav-item.active .nav-icon{color:var(--accent)}
+.nav-icon{font-size:15px;width:20px;text-align:center;flex-shrink:0}
+.nav-badge{margin-left:auto;background:#ef444420;color:#ef4444;border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700}
+.nav-badge.green{background:#22c55e20;color:#22c55e}
+.sidebar-footer{padding:12px 14px;border-top:1px solid var(--border)}
+.back-btn{display:flex;align-items:center;gap:8px;color:var(--dim);font-size:12px;font-weight:600;cursor:pointer;padding:8px;border-radius:8px;transition:all 0.15s}
+.back-btn:hover{color:var(--text);background:var(--surface2)}
 
-  /* Cards */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: 14px; }
-  .input-field { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; color: var(--text); font-size: 13.5px; width: 100%; transition: border-color 0.2s; }
-  .input-field:focus { border-color: var(--accent); }
-  select option { background: var(--surface); }
-  .label { font-size: 11px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 5px; display: block; }
-  .section-hdr { font-size: 11.5px; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 14px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+.content{margin-left:var(--sidebar-w);flex:1;min-height:100vh;display:flex;flex-direction:column}
+.topbar{height:56px;border-bottom:1px solid var(--border);padding:0 28px;display:flex;align-items:center;justify-content:space-between;background:var(--surface);flex-shrink:0}
+.topbar-title{font-weight:700;font-size:15px;letter-spacing:-0.01em}
+.topbar-right{display:flex;align-items:center;gap:10px}
+.badge-pill{background:#22c55e18;color:var(--green);border:1px solid #22c55e30;border-radius:20px;padding:3px 12px;font-size:11.5px;font-weight:700}
+.btn-sm{background:transparent;border:1px solid var(--border2);border-radius:7px;padding:5px 12px;color:var(--muted);font-size:12px;cursor:pointer;font-weight:500;transition:all 0.15s}
+.btn-sm:hover{border-color:var(--accent);color:var(--accent)}
+.page{flex:1;padding:28px;overflow-y:auto}
 
-  /* Buttons */
-  .btn-primary { background: linear-gradient(135deg, var(--accent), var(--accent2)); color: white; border: none; border-radius: 9px; padding: 10px 22px; font-weight: 700; font-size: 13.5px; cursor: pointer; transition: opacity 0.15s; }
-  .btn-primary:hover { opacity: 0.9; }
-  .btn-primary:disabled { opacity: 0.45; cursor: not-allowed; }
-  .btn-ghost { background: transparent; border: 1px solid var(--border2); border-radius: 9px; padding: 9px 18px; color: var(--muted); font-size: 13px; cursor: pointer; transition: all 0.15s; }
-  .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
-  .btn-save { background: linear-gradient(135deg, var(--green), #16a34a); color: white; border: none; border-radius: 9px; padding: 10px 24px; font-weight: 700; font-size: 13.5px; cursor: pointer; }
-  .btn-export { background: transparent; border: 1px solid var(--border2); border-radius: 8px; padding: 7px 14px; color: var(--muted); font-size: 12px; cursor: pointer; font-weight: 600; transition: all 0.15s; }
-  .btn-export:hover { border-color: var(--green); color: var(--green); }
-  .btn-edit { background: #6366f115; border: 1px solid #6366f130; border-radius: 8px; padding: 6px 14px; color: #a5b4fc; font-size: 12px; cursor: pointer; font-weight: 600; transition: all 0.15s; }
-  .btn-edit:hover { background: #6366f125; }
-  .btn-edit.active { background: #f59e0b20; border-color: #f59e0b40; color: #f59e0b; }
+/* ── Common Components ── */
+.card{background:var(--surface);border:1px solid var(--border);border-radius:14px}
+.card-pad{padding:22px}
+.section-hdr{font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:0.1em;margin-bottom:14px;padding-bottom:8px;border-bottom:1px solid var(--border)}
+.label{font-size:11px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:5px;display:block}
+.input-field{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:9px 12px;color:var(--text);font-size:13px;width:100%;transition:border-color 0.2s}
+.input-field:focus{border-color:var(--accent)}
+select option{background:var(--surface)}
+.bdg{border-radius:6px;padding:2px 9px;font-size:11px;font-weight:700;white-space:nowrap;font-family:"DM Mono",monospace;display:inline-block}
+.office-pill{background:var(--surface2);border-radius:6px;padding:3px 9px;font-size:11px;font-weight:700;color:var(--muted);display:inline-block}
+.btn-primary{background:linear-gradient(135deg,var(--accent),var(--accent2));color:white;border:none;border-radius:9px;padding:10px 22px;font-weight:700;font-size:13px;cursor:pointer;transition:opacity 0.15s}
+.btn-primary:hover{opacity:0.9}
+.btn-primary:disabled{opacity:0.45;cursor:not-allowed}
+.btn-ghost{background:transparent;border:1px solid var(--border2);border-radius:9px;padding:9px 18px;color:var(--muted);font-size:13px;cursor:pointer;transition:all 0.15s}
+.btn-ghost:hover{border-color:var(--accent);color:var(--accent)}
+.btn-save{background:linear-gradient(135deg,var(--green),#16a34a);color:white;border:none;border-radius:9px;padding:10px 24px;font-weight:700;font-size:13px;cursor:pointer}
+.btn-export{background:transparent;border:1px solid var(--border2);border-radius:8px;padding:6px 13px;color:var(--muted);font-size:12px;cursor:pointer;font-weight:600;transition:all 0.15s}
+.btn-export:hover{border-color:var(--green);color:var(--green)}
+.btn-edit{background:#6366f115;border:1px solid #6366f130;border-radius:8px;padding:6px 14px;color:#a5b4fc;font-size:12px;cursor:pointer;font-weight:600;transition:all 0.15s}
+.btn-edit:hover{background:#6366f125}
+.btn-edit.editing{background:#f59e0b20;border-color:#f59e0b40;color:#f59e0b}
 
-  /* Stats */
-  .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; margin-bottom: 22px; }
-  .stat-box { background: var(--surface); border: 1px solid var(--border); border-radius: 13px; padding: 18px 22px; }
-  .stat-num { font-size: 30px; font-weight: 800; font-family: "DM Mono", monospace; line-height: 1; margin-bottom: 4px; }
-  .stat-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+/* ── Stats ── */
+.stats-row{display:grid;gap:14px;margin-bottom:24px}
+.stats-4{grid-template-columns:repeat(4,1fr)}
+.stats-3{grid-template-columns:repeat(3,1fr)}
+.stats-2{grid-template-columns:repeat(2,1fr)}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:18px 22px}
+.stat-num{font-size:30px;font-weight:800;font-family:"DM Mono",monospace;line-height:1;margin-bottom:4px}
+.stat-label{font-size:12px;color:var(--muted);font-weight:500}
+.stat-sub{font-size:11px;color:var(--dim);margin-top:2px}
 
-  /* Filters */
-  .filter-row { display: flex; gap: 10px; margin-bottom: 18px; align-items: center; flex-wrap: wrap; }
-  .search-wrap { position: relative; }
-  .search-icon { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--dim); font-size: 13px; pointer-events: none; }
-  .search-input { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 8px 12px 8px 30px; color: var(--text); font-size: 13px; width: 240px; transition: border-color 0.2s; }
-  .search-input:focus { border-color: var(--accent); }
-  .search-input::placeholder { color: var(--dim); }
-  .filter-btns { display: flex; gap: 6px; flex-wrap: wrap; }
-  .filter-btn { padding: 7px 13px; border-radius: 7px; border: 1px solid var(--border); background: transparent; color: var(--dim); font-size: 11.5px; font-weight: 700; cursor: pointer; letter-spacing: 0.04em; transition: all 0.15s; }
-  .filter-btn:hover { border-color: var(--border2); color: var(--muted); }
-  .filter-btn.active { border-color: var(--accent); background: #6366f115; color: #a5b4fc; }
+/* ── Table ── */
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px}
+th{padding:11px 14px;text-align:left;font-size:10.5px;font-weight:700;color:var(--dim);text-transform:uppercase;letter-spacing:0.06em;white-space:nowrap;border-bottom:1px solid var(--border);cursor:pointer;user-select:none;transition:color 0.15s}
+th:hover{color:var(--muted)}
+th.sort-asc::after{content:" ↑";color:var(--accent)}
+th.sort-desc::after{content:" ↓";color:var(--accent)}
+td{padding:10px 14px;border-bottom:1px solid #0a1525;vertical-align:middle}
+.row-hover{cursor:pointer;transition:background 0.12s}
+.row-hover:hover{background:#ffffff05}
 
-  /* Table */
-  .table-wrap { overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  th { padding: 11px 14px; text-align: left; font-size: 10.5px; font-weight: 700; color: var(--dim); text-transform: uppercase; letter-spacing: 0.06em; white-space: nowrap; border-bottom: 1px solid var(--border); cursor: pointer; user-select: none; transition: color 0.15s; }
-  th:hover { color: var(--muted); }
-  th.sort-asc::after { content: " ↑"; color: var(--accent); }
-  th.sort-desc::after { content: " ↓"; color: var(--accent); }
-  td { padding: 10px 14px; border-bottom: 1px solid #0a1525; vertical-align: middle; }
-  .row-hover { cursor: pointer; transition: background 0.12s; }
-  .row-hover:hover { background: #ffffff05; }
-  .client-name { font-weight: 700; color: var(--text); }
-  .client-date { font-size: 11px; color: var(--dim); margin-top: 2px; }
-  .caregiver-name { color: #cbd5e1; }
-  .caregiver-phone { font-size: 11px; color: var(--dim); margin-top: 2px; font-family: "DM Mono", monospace; }
-  .office-pill { background: var(--surface2); border-radius: 6px; padding: 3px 9px; font-size: 11px; font-weight: 700; color: var(--muted); display: inline-block; }
-  .ins-text { color: var(--muted); font-size: 12px; }
-  .arrow-btn { color: var(--accent); font-weight: 700; font-size: 16px; opacity: 0.7; }
+/* ── Filter row ── */
+.filter-row{display:flex;gap:10px;margin-bottom:18px;align-items:center;flex-wrap:wrap}
+.search-wrap{position:relative}
+.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--dim);font-size:13px;pointer-events:none}
+.search-input{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:8px 12px 8px 30px;color:var(--text);font-size:13px;width:240px;transition:border-color 0.2s}
+.search-input:focus{border-color:var(--accent)}
+.search-input::placeholder{color:var(--dim)}
+.filter-btns{display:flex;gap:6px;flex-wrap:wrap}
+.filter-btn{padding:6px 12px;border-radius:7px;border:1px solid var(--border);background:transparent;color:var(--dim);font-size:11.5px;font-weight:700;cursor:pointer;letter-spacing:0.04em;transition:all 0.15s}
+.filter-btn:hover{border-color:var(--border2);color:var(--muted)}
+.filter-btn.active{border-color:var(--accent);background:#6366f115;color:#a5b4fc}
 
-  /* Badge */
-  .bdg { border-radius: 6px; padding: 2px 9px; font-size: 11px; font-weight: 700; white-space: nowrap; font-family: "DM Mono", monospace; display: inline-block; }
+/* ── Stepper ── */
+.stepper{display:flex;align-items:center;margin-bottom:32px}
+.step-dot-wrap{display:flex;flex-direction:column;align-items:center;gap:5px}
+.step-dot{width:28px;height:28px;border-radius:50%;border:none;color:white;font-size:12px;font-weight:700;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}
+.step-dot.done{background:var(--green)}
+.step-dot.current{background:linear-gradient(135deg,var(--accent),var(--accent2))}
+.step-dot.future{background:var(--surface2);color:var(--dim);cursor:default}
+.step-label{font-size:11px;font-weight:600;white-space:nowrap}
+.step-line{flex:1;height:1px;margin:0 8px;margin-bottom:20px;transition:background 0.3s}
+.checklist-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--bg);flex-wrap:wrap;gap:8px}
+.opt-btn{padding:5px 12px;border-radius:6px;border:1px solid var(--border);background:var(--bg);color:var(--dim);font-weight:600;font-size:12px;cursor:pointer;transition:all 0.15s}
 
-  /* Modal */
-  .overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.72); z-index: 100; display: flex; align-items: center; justify-content: center; padding: 20px; backdrop-filter: blur(5px); animation: fadeIn 0.18s ease; }
-  .modal { background: var(--surface); border: 1px solid var(--border2); border-radius: 18px; max-width: 860px; width: 100%; max-height: 90vh; overflow-y: auto; animation: slideUp 0.2s ease; }
-  .modal-head { padding: 22px 28px; border-bottom: 1px solid var(--border); display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
-  .modal-title { font-weight: 800; font-size: 22px; letter-spacing: -0.02em; }
-  .modal-sub { color: var(--muted); font-size: 12.5px; margin-top: 4px; }
-  .modal-body { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; padding: 22px 28px; }
-  .modal-foot { padding: 14px 28px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
-  .close-btn { background: var(--surface2); border: none; color: var(--muted); border-radius: 8px; padding: 8px 14px; cursor: pointer; font-size: 18px; line-height: 1; transition: all 0.15s; }
-  .close-btn:hover { color: var(--text); }
-  .info-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid #0a1525; gap: 8px; }
-  .info-label { font-size: 12.5px; color: var(--muted); flex-shrink: 0; }
-  .info-val { font-size: 12.5px; color: #94a3b8; }
-  .contact-val { font-family: "DM Mono", monospace; font-size: 12px; color: #a5b4fc; }
+/* ── Modal ── */
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,0.72);z-index:100;display:flex;align-items:center;justify-content:center;padding:20px;backdrop-filter:blur(5px);animation:fadeIn 0.18s ease}
+.modal{background:var(--surface);border:1px solid var(--border2);border-radius:18px;max-width:860px;width:100%;max-height:90vh;overflow-y:auto;animation:slideUp 0.2s ease}
+.modal-head{padding:22px 28px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.modal-title{font-weight:800;font-size:22px;letter-spacing:-0.02em}
+.modal-sub{color:var(--muted);font-size:12.5px;margin-top:4px}
+.modal-body{display:grid;grid-template-columns:1fr 1fr;gap:24px;padding:22px 28px}
+.modal-foot{padding:14px 28px;border-top:1px solid var(--border);display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap}
+.close-btn{background:var(--surface2);border:none;color:var(--muted);border-radius:8px;padding:8px 14px;cursor:pointer;font-size:18px;line-height:1;transition:all 0.15s}
+.close-btn:hover{color:var(--text)}
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:7px 0;border-bottom:1px solid #0a1525;gap:8px}
+.info-label{font-size:12.5px;color:var(--muted);flex-shrink:0}
+.info-val{font-size:12.5px;color:#94a3b8}
+.contact-val{font-family:"DM Mono",monospace;font-size:12px;color:#a5b4fc}
+.edit-input{background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:5px 9px;color:var(--text);font-size:12.5px;width:100%;transition:border-color 0.2s}
+.edit-input:focus{border-color:var(--accent)}
+.edit-select{background:var(--bg);border:1px solid var(--border2);border-radius:6px;padding:4px 8px;color:var(--text);font-size:12px;cursor:pointer}
+.edit-opt{padding:3px 9px;border-radius:5px;border:1px solid var(--border);background:var(--bg);color:var(--dim);font-weight:600;font-size:11px;cursor:pointer;transition:all 0.12px}
 
-  /* Edit mode fields inside modal */
-  .edit-input { background: var(--bg); border: 1px solid var(--border2); border-radius: 6px; padding: 5px 9px; color: var(--text); font-size: 12.5px; width: 100%; transition: border-color 0.2s; }
-  .edit-input:focus { border-color: var(--accent); }
-  .edit-select { background: var(--bg); border: 1px solid var(--border2); border-radius: 6px; padding: 4px 8px; color: var(--text); font-size: 12px; cursor: pointer; }
-  .edit-opt { padding: 3px 9px; border-radius: 5px; border: 1px solid var(--border); background: var(--bg); color: var(--dim); font-weight: 600; font-size: 11px; cursor: pointer; transition: all 0.12s; }
+/* ── Charts (pure CSS bar charts) ── */
+.chart-section{margin-bottom:28px}
+.chart-title{font-size:13px;font-weight:700;margin-bottom:14px;color:var(--text)}
+.bar-chart{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:flex;align-items:center;gap:12px}
+.bar-label{font-size:12px;color:var(--muted);width:130px;flex-shrink:0;text-align:right;font-weight:500}
+.bar-label.left{text-align:left;width:110px}
+.bar-track{flex:1;background:var(--surface2);border-radius:4px;height:22px;position:relative;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;transition:width 0.6s ease;display:flex;align-items:center;padding-left:8px}
+.bar-val{font-size:11px;font-weight:700;color:white;font-family:"DM Mono",monospace}
+.donut-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:12px;color:var(--muted)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
 
-  /* New Referral */
-  .stepper { display: flex; align-items: center; margin-bottom: 32px; }
-  .step-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 5px; }
-  .step-dot { width: 28px; height: 28px; border-radius: 50%; border: none; color: white; font-size: 12px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.2s; }
-  .step-dot.done { background: var(--green); }
-  .step-dot.current { background: linear-gradient(135deg, var(--accent), var(--accent2)); }
-  .step-dot.future { background: var(--surface2); color: var(--dim); cursor: default; }
-  .step-label { font-size: 11px; font-weight: 600; white-space: nowrap; }
-  .step-line { flex: 1; height: 1px; margin: 0 8px; margin-bottom: 20px; transition: background 0.3s; }
-  .checklist-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid var(--bg); flex-wrap: wrap; gap: 8px; }
-  .opt-btn { padding: 5px 12px; border-radius: 6px; border: 1px solid var(--border); background: var(--bg); color: var(--dim); font-weight: 600; font-size: 12px; cursor: pointer; transition: all 0.15s; }
+/* ── Assessment table ── */
+.assess-status{display:inline-flex;align-items:center;gap:5px;font-size:11px;font-weight:700;padding:3px 9px;border-radius:6px;font-family:"DM Mono",monospace}
 
-  /* NR table */
-  .nr-table td { color: var(--muted); }
+/* ── About ── */
+.about-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:24px;margin-bottom:16px}
+.version-row{display:flex;justify-content:space-between;align-items:flex-start;padding:12px 0;border-bottom:1px solid var(--border)}
+.version-tag{background:#6366f120;color:#a5b4fc;border:1px solid #6366f130;border-radius:6px;padding:2px 10px;font-size:11px;font-weight:700;font-family:"DM Mono",monospace}
+.location-card{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:16px}
 
-  /* Toast / Error */
-  .toast { position: fixed; bottom: 28px; right: 28px; background: var(--green); color: white; border-radius: 12px; padding: 14px 22px; font-weight: 700; font-size: 14px; z-index: 200; box-shadow: 0 8px 32px rgba(34,197,94,0.3); animation: slideUpToast 0.3s ease; }
-  .error-bar { background: #ef444418; border: 1px solid #ef444435; color: var(--red); border-radius: 10px; padding: 12px 16px; margin-bottom: 16px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; }
-  .x-btn { background: none; border: none; color: var(--red); cursor: pointer; font-size: 16px; }
+/* ── Toast / Error ── */
+.toast{position:fixed;bottom:28px;right:28px;background:var(--green);color:white;border-radius:12px;padding:14px 22px;font-weight:700;font-size:14px;z-index:200;box-shadow:0 8px 32px rgba(34,197,94,0.3);animation:slideUpToast 0.3s ease}
+.error-bar{background:#ef444418;border:1px solid #ef444435;color:var(--red);border-radius:10px;padding:12px 16px;margin-bottom:16px;font-size:13px;display:flex;justify-content:space-between;align-items:center}
+.x-btn{background:none;border:none;color:var(--red);cursor:pointer;font-size:16px}
+.loader-wrap{display:flex;flex-direction:column;align-items:center;justify-content:center;height:60vh;gap:18px}
+.spinner{width:36px;height:36px;border:3px solid var(--border);border-top:3px solid var(--accent);border-radius:50%;animation:spin 0.8s linear infinite}
 
-  /* Loader */
-  .loader-wrap { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 100vh; gap: 18px; }
-  .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top: 3px solid var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; }
-
-  @keyframes spin { to { transform: rotate(360deg); } }
-  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-  @keyframes slideUp { from { transform: translateY(16px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  @keyframes slideUpToast { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(16px);opacity:0}to{transform:translateY(0);opacity:1}}
+@keyframes slideUpToast{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-// ── Office Migration Notes ──
-// NEWTON clinic merged into FOREST (run SQL: update referrals set office='FOREST', notes=concat(notes,' | Previously: NEWTON Clinic') where office='NEWTON')
-// JACKSON clinic merged into FLOWOOD (run SQL: update referrals set office='FLOWOOD', notes=concat(notes,' | Previously: JACKSON Clinic') where office='JACKSON')
-// SCHOOL renamed to DAY TREATMENT (run SQL: update referrals set office='DAY TREATMENT' where office='SCHOOL')
-// Legacy records with old office values will still display correctly with migration badge shown
-
 const LOGO_SRC = "data:image/png;base64,/9j/4AAQSkZJRgABAQAAAQABAAD/4gHYSUNDX1BST0ZJTEUAAQEAAAHIAAAAAAQwAABtbnRyUkdCIFhZWiAH4AABAAEAAAAAAABhY3NwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAA9tYAAQAAAADTLQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAlkZXNjAAAA8AAAACRyWFlaAAABFAAAABRnWFlaAAABKAAAABRiWFlaAAABPAAAABR3dHB0AAABUAAAABRyVFJDAAABZAAAAChnVFJDAAABZAAAAChiVFJDAAABZAAAAChjcHJ0AAABjAAAADxtbHVjAAAAAAAAAAEAAAAMZW5VUwAAAAgAAAAcAHMAUgBHAEJYWVogAAAAAAAAb6IAADj1AAADkFhZWiAAAAAAAABimQAAt4UAABjaWFlaIAAAAAAAACSgAAAPhAAAts9YWVogAAAAAAAA9tYAAQAAAADTLXBhcmEAAAAAAAQAAAACZmYAAPKnAAANWQAAE9AAAApbAAAAAAAAAABtbHVjAAAAAAAAAAEAAAAMZW5VUwAAACAAAAAcAEcAbwBvAGcAbABlACAASQBuAGMALgAgADIAMAAxADb/2wBDAAUDBAQEAwUEBAQFBQUGBwwIBwcHBw8LCwkMEQ8SEhEPERETFhwXExQaFRERGCEYGh0dHx8fExciJCIeJBweHx7/2wBDAQUFBQcGBw4ICA4eFBEUHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh4eHh7/wAARCAH0AfQDASIAAhEBAxEB/8QAHAABAAICAwEAAAAAAAAAAAAAAAYHBQgBAwQC/8QAURAAAgEDAgQEAgYGBAgLCQAAAAECAwQRBQYHEiExE0FRYXGBCBQiMpGhFUJSYrHBFiNygjM2RFOSorLxFyQmNGNzdLPR0vA1Q1RWdYOTlKP/xAAcAQEAAgMBAQEAAAAAAAAAAAAABQYDBAcCAQj/xAA4EQEAAgEDAgQDBQcDBQEAAAAAAQIDBAUREjEGIUFRE2FxBxQigaEVMlKRscHRI0LhFiQzkqLw/9oADAMBAAIRAxEAPwDcsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAARrfu+Ns7GsKN7uXUfqlOvJ06MY0p1JVJJZaSim+3n26r1RBlxqudWWdncN9165Dyr1KCtqEvhN83T44Zad1p9hdXVC5urG1r16GfBqVKSlKnnGeVvqs4Xbvheh6wKmhuHjnqfWy2Bt/RYv7r1LUvHwvdUmn+SPr9Ecer1Zud2bR0rP/wVlOs4/wD5IlrgCp/6EcYqn+G4yxh/Y2/Q/wDFD+gnFyj9qhxolOXfFTb9DH5yZbAAqb+i/HGj1p8T9IuWuyraNTgn8eWPQ48T6QWnfet9ja3BfsSrUqj/AB5Yr8y2gBUb4jcS9I/xk4Q6hUpd3W0i9hdPHtTim/xaPRp3Hvh/VuFa6tW1Tb90+ng6nYTpyT93FSS+LaLUPLqOn2GpWzt9Rsba8oS707ijGpF/KSwB59D1zRtdtfrWi6tZajQ6ZqW1eNSK9m4vo/YyRWmu8Eth39f65pljc7d1CPWF3o9xK3lB+0V9hfJIxUNE407Ok5aNuCw3xpsf8k1ReBd49I1c4b95S+QFwAq7RuNG31qENJ3lp+o7M1WXRUtUptUZv1jWxyuP7zUUWZbV6NzQhcW1anWpVIqUJ05KUZLyaa6NAdoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA8Gt6PpeuafPT9Y062v7Wf3qVxSU459cPs/cq684U65tO4qalwn3LW0jLc56Lfydaxqv0Wcyg32z1fui4ABVO2eMFGhq0Nt8RtJq7Q1x9ISrvNncvOM06vZL4vC7czZakZRnFSi04tZTXVMxe59u6JubSp6Xr+mW+oWk+9OrHPK/WL7xfummVVc6FvvhKndbPqXO7NpU+tXRrmbd1Zw83Qkl1j+7h/2X1kgusEX4e7529vrR/wBI6Dd+I4YVe2qYjWt5fszjnp59VlPDw2SgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAKw4hcMJXerveGxL1bd3bSzJ1YLFC9XdwrRxh5f62HnzT6NenhjxJWv6hV2tuiw/QO77RYr2FR4jXSWfEovP2otdcZbS65aWSxiG8TdgaVvjTafjTnYaxaPxNO1O36VrWonlNNdXHPePzWHhoJkCruGm/tTjrr2BxBpU7LdVvDNvcLpQ1Sms4qU3jHNhdY+zwlhxjaIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAcdzj+JyRjfu9dG2bp31nUq3NVmn4NvDDqVWvRenueb3rSOq3lDLgwZNRkjHirzafSEkqThTg5zkopLLbfYr2rxj2VDcEdJ+t1pRcuR3caadBSzjHNnPzxj3KE3/xF3Fu+vKNzcStdPz9izoyagl+8/1n8ensiHkBqN6/Fxijy93SNs8AxOKbay/4pjyiPT6t74yTWU8pnJWnATecdybXhpt1US1LToRp1F/nKeMQn+WH7r3RZSwTmHLXNSL19XPNdo8mi1FsGWOJrPD6ABlaoAAAAAh/FLYmmb70FWdzOdpqFtLxdO1Cl0q2lVYalFrrjKWVlZwn0aTWA4Rb51O61G52FvimrXd2mR6z6KnqNFdq1N9E3jq0seqx1UbPK84zbDqbs0621fQq/wBQ3XpEvH0u8g1Ftp58KT84v37N+jkmFhghHB/fVPfG3JVLqh9S1vT6n1XVrGSalQrrKbw+qi8Nr4NdWmTcAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA4DPNf3VOztp16vaPku7ZFK+u6jUquUKqpRz0iop4+PQrO+eKtDstq0z8zafSGxg0uTNHNeyaIGD0DWXd1Pq9wkquG012l6/MzhKbXumn3TTxqNPPNZ/Rjy47Y7dNnIAJJjcLzDIvu7fe2NrPw9W1SlCu1lUKac6ns+VdUvd4Q2NvnQN40a09HuKniUGlVo1Ycs457P4PD7GL42Pr6OqOfZtfcNTGH48456Pfjyebi3uyrs7aFTU7W3Ve5qVI0KCkm4Rk0/tSx5LD9M9FlZNTNa1XUda1GpqOqXdW7uqrzKc3l48kl5L26fA3U13SdP1vSq+l6nbQuLWvHlnCX5NPya9TVPizsS52TrUacZyr6bc5drWkuqx3hL95ZXxXp1Shd6xZpiLxP4Y9F+8B6vRUtbDaOMs9p949o9kLABXHUmc2LuO62ruiz1m15n4UsVaaePEpvpKL/j180vQ3J0q+tdS0631Cyqxq29xTjUpzX60Wso0aLQ4S8V6m0NOnpOqWte9sE3O3dJrnpNvrHDeHFvr7PPfPSZ2rXRgmaXniqi+MfD19fSuo09eb18pj1mP+F98Qd36bs3Q5alf5qTk+ShQi/tVZ+i9Pd+RRdXjxu2V/4tOz0yFvzZVF05N8vo5c3fHnj5eRD+JG8r/emvPULpeFbUk4W1vnKpRz1z+8+jb+HoRg+azdMl8nGKeKx+r7sfg7TYdNzrKdV5/T5fVt/wx31p+99JlcUIO3vaGFc2zllwbzhp+cXh9fZkwT6s1b+jbWuafEmnSo5dKta1Y1ku3KsNP8Ul8zaRL5k5t+ptqMMWt3c98TbXj2zXzhxT+GYiY+XPo+gAbyAAABTfF/S7/Y+6aPFzbNvOrClFUNxWVP8Ayq2yl4qX7UcLr5YTfRSza2h6lZazpFpqunXELizu6Ua1GpHtKLWU/Z+z7M9NxRo3NvUt7ilGrSqQcJwmk4zi1hpp9008YKd4XVanDviRqHC2+qT/AERfc+o7bqVG2lBtupb5fmsN4/dbf30gLnAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAR/enN9Uor9XxOvxwyLE33FShW0qsptJxXNFvyaIQcG+0XT2x7p8SZ5i0R+XondutE4uPaWQ27CU9Yocv6rbb9sP8A3E39yJ7QlQhd1XUlGNRxShl9/XH5ErlNKLw0/TqXj7O8VMO1dfVHNpmeOe3p/Zo7jM2zccOm9ureytKt3dV6dChSi5TqVJKMYpd235FB8T+NVe6lV0vaEpUKHWM79rE5/wDVp/dX7z6+yxkgPEbiPqu9dVu7Spd0YWVjczoO1tavPThUg2m5SX33079vNdyIk5r91vM/Dx+XzdF8NeD8FaV1WqmLzPaPT8/f+j7rVatetOtXq1KtWcm5znJtyfdtt9W/dljfRvv3acTKFvz8sbu3qUWvKTS5/wAfslbHq0jULzSdTt9SsK7oXVvNTpzj5P39Vjpj3ZFafL8PLXJPpK67nofveiyaevEdUTEe0T6N5Ss/pI29rV4Z3FWuo+NRuKU6Ge/NzYeP7rkRfSvpA0FYL9J6BVd4o4bt6q8OT9evWP5/ErjibxF1Xe9anTr0oWVhRlz0raEnL7WGuaUmvtPq/To2WHV7lp7YJrWeZmOzl+yeFdyxa/HfJXprWeZnmPT2+qFgAqzsIAAPqlTnVqxpUoSnUnJRhCKbcnnCSS6t58iw9F4M741KlCrUtLbT4TSa+tVsSS79oqTXwf4IiGzdUp6JurTNVrU1Up21zCpOOM5ims/NLLXyN0rG5t72yo3lrVhVo1oKdOcXlSi1lNExtmixamJm8+ceij+LfEGs2u1KYKxxaO/HPmg/CbhxZ7IoVbidf67qdxFQqV+XEYRznlgu6XbPXq0uxYAxnuH8SzYsVMVIpSOIhyXV6zNrMs5s082n1cgAyNcAAArfj9tW71/Z8NX0Vyp7h2/VWo6bUgsycodZQXrzJLp5uMfLJZAAjnDfdNrvPZWmbjtcRV3RTq008+HVXScPlJNe6w/MkZTPDxLYPGzXNhy/qtH16L1fRo9owqYfjUory+7J48owj6lzAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHDIhqesajSvq1KncckITaS5IvoS99mQHVv/adz/wBYznn2h67U6TSY7YLzWZt6Tx6JDbsdb3mLRy9X6e1P/PL/AEUcS13U2v8AD491BfzMYDkn/UW6zHH3i3/tKW+7Yv4XddXdzcvNetOa8lnovl2OkAis2oy579eW02n5staxWOIjiAAHiL2jtL7w1n487Wlsbei3rptJrQdZqqnqdOC6W9w8tVMLspPL+PMvNIxsJRlCMoSUotJpp5TXk0zZncujafuLQbzRNVoKtZ3lJ0qsezx5NPyaeGn6pPyNT7Wx1DZ+6L3Ymtz5q1p/WWFdrCubd5cWvdLy64w1+qzrPhrdv2npfhZJ/wBXH/8AVfSfrHqtPhfdfu2X7pln8Nv3flPt+f8AVmQC3+HPBS61rToapuK6radQqxUqVCnFeK4+TllYj8MPv5dix4NNkz24pC6bluul23F8TUW457e8qgBavE7g7ebb0+pq+i3VTULCks1oVIpVaUfOXTpKPr2x369cVUfM+nyYLdN4fdu3PTbji+Lp7cx6+8OG0k23hLq2zw2us6Td13QttSta1VPHLCrFvv5Lz+R4t+UrqttDUadnzeN4WUl5xTTl/qqRi9D27t7VNL0zUrWiqc6S51On0fN5p+6aMmLDjnHN7zMenk19VrNTXVxgw1jtzPPr58eX0TAAGolwu/6Oe/HQrR2fqtX+rqNuwqSf3ZdW6bfo+rXzXoikD7t6tW3r069CpKlVpyU4Sg8OLTymmuzys5NnS6m2nyRev5/RF7xteLc9LbBfv3ifaW9oIPwg3rR3jtqNWrKMdStUqd5TX7XlNe0sN/ivInBdcWSuWsXr2lwLV6XJpM1sOWOLVnhyADI1wAAAABUv0lbC5tdvaTvzTKfNqO1dQp3aS7zoSko1IfB/Zb9ky0NKvrbU9LtNSs5+JbXdCFejP9qEkpRfzTR169plrrOiX2kXsea2vbepb1V58s4uL/Jlb/Rk1S5nsW62tqUs6ltm/q6bXT7uMZNwfw6yiv7AFrAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAOMdyBa1Hl1W4X/SZ/mT0he6KLp6vOWOlRKS/DH8jnP2lYLX22mSI/dt/aUjttojLMT6wxYO21tri6nyUKcqkvPHZfPyO26069tYc9xbzhH1ynj447HGabdqr4pzVx26PfieP5pmclYnp5jl5TDbz3NpG0dAra5rlWtRsqDSnKnRnVabeF0inhe7x8jMkb4qU1W4Y7ppNZUtGu1j/7Mxt+LHm1WPHk56bTETx34meDJMxSZjuwG1OM2w9x6tbaVb6jcWd3dY+qwv7WVBXGcYUJP7LbysLPXK7lhmu8tD27ffRNhq+p21KF3aaOq1vcpuM414RXhtNeblyx+DwXJww1K91fh/omoai272raQVw5d5TSxJv36N/EnN92rS6ek5tLzEVvNJiZ5849YniPL3YcOW1p6bescpIVh9ITYFXd+2Yapo0OXcWjt17GUF9qsu8qL9c4yl6rHTLLPBCbdr8ug1NNRi71/X3ifqzzHPaePmpX6K+37bflx/SW/or6nps1GrbvzuUvuP8AdSxL3yvdG2KWFjyK62ZQ0na9e/np2l0LaOoV3cXXgQUXUq+cn6v/ANepjN78XNM0i+lp8frDrQX9ZChBSlHpnq20uz8jt21eLtutperFWZvP+2O/8+3DHrablvWpjmOqYiIjj2Wfqc7Wnp9xUvJU428KUpVXP7qil1b+Ro3WdN1puknGm5PkT7pZ6Z+RPN9cTtY3DZVNLtZ1rXT6mFVjKo5Tqrvh+i9v4roQE2NVuU66lLTTp493QfCOxZ9rx5L5587ceX0eLWdUstIsXeX9Z06Kko8yi5PL8un+4i050tua7ZXemzzpOr1HGpQXanU8pxXlnzXlj4JS7UbS3v7KtZ3VPxKNaPLNevwfk13z5MjVnszwr+2q3Wq3N3b2mfq1Kq8qC9PT5/kumPumtirWeqe/p7+yT3TDq8mak4q8xExxPrHn58/KYS0AGknu0eYe7QdH1LXdTpabpVrUurqq+kY+S8235L36FjcN+Derbgp09Q1ypPS9Pl9qNPl/r6q9k+kV7vr7eZf+0tq6Htax+qaNYU7dPHiVPvTqP1lJ9WS2k2nJl4tfyj9VL3rxnpdF1YtP+O/6R/lFOC3Dyvsm1vLnULunXvrxQUlSzyU4xz0WerfXvhdl8XY/sh3C9EWfDhphp0U7Q5Hrdbm1ue2fNPNpfQAMjWAAAAAArjbe0dY0TjluPcNtTpx2/ren0p1cTWfrcGopcvf7qnLL6fb790rHAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABw2ee6s7a6jFXFKM8PKz3R6DxalqNvYQUq+cy+7GKy2aeuvpseC1tVx0evPZ6pFptEV7vTQo0aFNQpQjCK8ksIVqcKtOUJxUoyTTT8zHWuu6fX6Oq6UvSax+fYX+tWdvRk6dWFabXSMHnr/IjZ3nao0s3rlr0RHpMf0/syfBy9XExPKIXdNUbqrSTyoTcU/g2YDf8ADxdibgp/taZcr/8AlJGcnOU6kqk3mUpNyfq85ZjNzaRQ1/b97o11VuKVG8oulOVGo4TSffEl29PdZXmfnTHmxV1sZY8qdXP5c8rHNZ6OJ78NQdvUdx1tG2DR3NqkLzaN7cwtrWyS8OFKpj7NScY9aqh3eei6eTae4ukWNHTNMoWFDPh0YKKb7t92375bZVOzOBWh6BqFG6nV8d0U4wlOU6kow84QcniC8spZ7rOGy4SxeLN40+4XpXTTzWOZny4jmZ57e/vPq19Lhtj5m3cABTm4GvfEuwuLDed+q6eK83Wpy8pRl2x88r5Gy+27Wldahy1o80IQcsPszxcWeHdnurQJ/UaNOhqdunO1muik/OEvZ4+Tw/U6X4K2DVZMU62kx0z5cevk39m3zFtutiuX923lM+3LVEHZc0K1rcVLa4pzpVqUnCpCSacZJ9U/R5WMHWWyY48pdcraLxFqz5AOy2oVrmvTt7ejOtWqSUYU4RblJt4SS83nyRceyOBV/f20bzc17PT4yWVa0EnVS/ek8qPww/4oz4NLlzzxSEduW8aTba9Wovx7R3n+SmDNbG1Wx0Tden6pqVgr61t6nNOi8Z7NKSXm1lP5eXcknGrZFnsrXLOhp1WvUtLqg5x8aWZKUXiXVJdOqfr1ZAT5el9Pl6Z7xL1gz4N10fXSZ6LxMe0+zdzbet6ZuDSaWpaTdU7i2qLo490/NNeTXozJ/A1O4G7ru9u71tLTxZOw1GrC3r0m+nNJ8sJL0ak119G/bG2S6rK8y3aHVxqcfVxxMOJ+IdmttOq+FzzWfOJ+TkAG6ggAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHBFd5qX1ug2/s8jx+P+4lRG96xWLaeO3Mvxw/5FP8AHWOb7Ll49OP6w29DPGeEbAB+eOZ7LE8+pXtppthXv7+4pW1rb03UrVajxGEEurb8lgpa746avq1xUWxdhXurWSk4wv7yurenNp4zFNYaz1+9n1S8pJ9KJXUuB+v/AFRvp4DqKOcuCrQ5u3l5v2yR7QFarQrBWEIxtfq9N0Yw7KHKnHHtjB1LwF4W0G56e2o1cdXnMRHPlHHH+VX8Q7xm2+Kxiju+bLjjrOkXNGO/di3Gk2M5qMr+0uVcU6bbwnKMV0/0s+z7F12tejdW1K5tqsK1GrBVKc4NNTi1lNNdGsPOUUTvyFvPZOtxuoqVFWNZyUvaDaa98pP44LA+j87l8GdsO7bdT6msOXfk5nyL4cvKvgefH3hjQ7XhpqNJHTzPEx58PXh3d824Vt8WOydgA5cszL7SeNVa9abX5r/wJiQbb8+TWKD9ZNfimTlHdvs3z9e12p61tP8AZBbjXjLyof6RewK9Wv8A0s0a1nVylG/pU45fToqiXd+SfwT9WVTs3ZO4t13cKWl2NTwW8TuaqcaUF68zXV+y6m5rxjDwcJJdUkl7FszbTiy5fiTPEesLDt/jPV6LR/dq1iZjtafSPp68IPw04baLs2gq0Ur3VJL+su6kcY9oL9Vfn79idHD9kcoksWKmKvTSOIhVtVq82ryzlzWm1p9ZVb9Iza1xr20qOoWNJ1brS5yqciWZSpSS50vfpF/JmsJve107ZIhqvDXZGp6hK+u9At5V5Nyk4SlTUm+7cYtJv3aIvX7XOov10niVw8N+Lq7XgnT56zNe8cd4+TXrgjtW73FvazuY0pqx06tC4uKuPspxeYx922l09M+htoumEeLSNMsNJsoWWm2dG0t4fdp0oKMV69Ee1vyNzRaSNLj6e8+qD8Qb1bd9T8WY4iI4iH0ADcQYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAADgwG8oZs6NT0qYf4Mz5U3HneG+NsqhS25w/juDTKlFSrX0tShQVGq5uKg4NZa+68+fNjphkPv2gvuG35dNT960eX1ZMOWuG8Xt2hkQUJLi5xVhKUZcMrRtfs6gmvxTwzrfFri3VbhR4a2MJPs6l8sL45kv4nG6/Z1vMzxMVj82/O/6Pj97+n+V3bl0m217b2o6LeLNvfW87ebXVpSi1le6zn5FA8JLqvLaH6Hv3jUdEu62m3EW8vNOX2X8MNR/uHruN8cctVh4NDTdt6Apd6sm604fD7U4t/J/I+tkbbqaBb31a81Ceo6nqVzO7vrmUVFVKsm22o9kstv3y+3RLofgrw3r9n641No6ZmJiIn19f8A98lZ8R7rpNXp4rTzsxXHG8lZ8N9QVPKlcSp0E16Oab/JNfM2F2tp1HSNs6ZpVu1KlZ2dKhCUXlNQgopp+fbOfMp7c+iWO4tFuNI1GEpW9dLLi8Sg08qSfk01nrnPbDy0RW02vxD0umrXR+J2oUbWPSEJ26ckuyWebr08+nwJHxd4Zy79jpSmTp6Z5+rS8P7xh0GO1b95bOnTc3VtbJSubijRTTac5qKa8+7Nbamzt1X8XT1vijue8oy+9ToV5UYteaa5pLt/66nTR4SbOU+e6pX97UbTlO4vJ5l8XHHwKZh+yu8x/qajj6V/5T+Txfpa9o5bUbdq2lWtLUJXlsrK0+3XrutFQp4Wer7L5mVu+IeybRN1dy6fLH+aq+J/sZNHd5bbsdj6xoN1tmvfafHUL6Fpd043MnTqUm1mMk31Xs210zjpklJ1fwZ4M0+36W2KLzPnzM+SL1+/2y9OSkeUtobnjFsSk8U9RuK/XvC1qL/aSOihxo2RUqOE699SinjnnbNpr16ZeDWUF2jw/pojvKLnes/tDc/b+u6Rr9krzR7+jd0c4coPrF+jT6p+zMma5/Rl+t/0zvlSclbfUW6y8m+ePLn3+9+ZsYis6/SRpc044nlPaPUTqMUXmOFbb84t6TtfWqmkQsK9/dUUvGcZqEINpNLPXLw0+2OvfOUopecfajTjabZin5Sq3bf5KH8yC8bbGtY8S9WVaP2a8416b8pRlFdV88r5MhZZdJtGkvhpeY5mY90Dqdy1FctqxPEQtG7447tqtqha6XQjjo1SlJ/nPH5HftrjXuOOrW1PWKVjXs6lWMazjScJwi31ccPGUnnDXljp3KnBuW2vSdEx0f5asa/UdUT1N412QOiylKpZ0ZyeZSpxb+OEd5QpjieFyieY5AAH0AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHm1G9tNOsK19fXNK2tbeDqVa1WSjCEUurbfRIadeW2oWFvf2VaNe2uaUa1GpDtOEknFr2aaYHpAAAAAAAARCuM0ZPZNZrsq1Nv4Zx/FomvmRnijR8fYupx/ZhGf+jJS/kfa92rra9WnvHylr4ADZc8AAAAAAAAV3x+pyjs+01GC+1YajRrt+eOscfi4npi1KKknmLWU/Y93GGjGvw11qnLsqKn84zjJfmjBbaqOttzTK0vvTs6Un8XBMn9gvxe9fdJ1nq0tZ9plkAAWVhX19FxWa0rWXGUfrrr01OOevhqL5Xj4uZc/maXaBrOp6DqMNQ0i7na3EVjmjhqS9GsYa6e5OrnjXvSra+DD9HUZ4x41Og3P44cmvyKxuOz5s2eclJiYn59k/otzx4sMUvHEwy30n69hU3BpNGi4u9p28/Hx3UHJci/FTePf360+d+o3l1qF7Wvb64ncXNablUqTeXJ+rf5Y7JdEdBO6LT/d8Fcczzx6ojU5vj5ZvEccgBzCEpzjCEXOUmlGMVlt+SSXdmzMxxLBEebd6hBU6NOnHtGKS+GDsOmyjKNnRhPpKMIp/HCydxzOe8r9XsAA+PoAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAMbubSqOubd1LRbh4o39rVtpv0U4OOV+OSAfRj1ave8LbfSr3pf6Fc1dLuYt9YunLMV8FGUV/dZaJTe2v+R/0ktd0Of8AV6fu20jqVovJ3NPPiJe7XiSf932AuQAAAABwfMpKKzJpLHdn0yjeK25bvUdeuNLo15QsbWXhunF4U5r7zl64eVh9OmfM9Vjlpa7W10mPrnzXbb16NxFyo1qdWKfeEk1n5GD4h16dvsrVZVGlzW7gs+svsr82jX+wvbywrqvZXVa3qftUpuL+Gc9V7Ht1jcWt6vRhR1HUatxSg8xi8RXzSWH8Xk9xTzQt9+rfFas14mWLABlVl0X91b2NjXvbuqqVvQpyqVZy7Rik22/kitLDVOIG9py1DQb6327pWf8Ai/iW0K06i8pT5l3a64j2ys+rzvHF1lwv1d0s9VSVTlznk8WHNj5Z+WSQ7UpW9HblhC2UVSdCMo8vbqsv+J5nznhv4pjDg+JxEzM8Rz2hFtJ3NuDQ9etdB3vRtZfXZOFjqdqmqVWf7E4/qy91j09WT0gPHuNP/g5uK3T61RuaFS1fTPieJFdPflcvzJno9WdfSrWtU6znRhKT9XhZYju8561vjrliOJmeJ9vJBt0771aW4LjQNo6bQu7i0wru6uW1SpS/ZSTTb/mn0eGzHw3dxHsnzXm3tI1Gku6tazpzfv8Aak8/JGN4b5nDXatTrXnq9bnb7vt3+bf5ksLFo9oxZsEXtM8y3Mnw8Nvh9ETHl37ozu3eWt7m25cbftdoalY3V7y0qlaum6NOOU5Pm5Vnosdl3z5JPPaZaxsdNtbKL5o29GFKL9VFJJ/kegEnodvppJtNZ5mWLJliaRSleI7gAJFgQnjJf3mm7YoXdleXFrUV3GDdGbg5Jxl5rr5GA1PXK11xB29C31K7hTr2tOdZRqtRcnzNfZ7Ppj45M7xhpxuNJ0q1n92rqUFL4ck0/wCJWmiUbihWt7+46VbXUqNpL91Ri1grmvzXrqemO08fosGixVtp4me/n+rYMuT6O2zbHVFc7j1S3hcRoVfBtaVSKcVNJSc2n0bWYpejz54xTaeUmuz6l6/Rn3FaKwvNtV6kadz47ubdSaXiRcUpJerXLnHfD9njf3i2SNJM4/lz9EfttaTqIi619e25oWu2/gavpdtdxSxFzguaP9mXdfJowWhcM9maLqcdRs9J5rinJSpOtVnUVJrGHFSeM5WcvLT7Etu7iha287m6r0qFGmuadSpJRjFerb7ETtuJuyLnVY6ZS1ym605qEZOnNU3LOEudrl+ecFOxW1M0muOZ49eOeFnyV08Wib8cpmAgazZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqf6SOl3lPbmmb40inz6ptS9hfQS7zoZSqwfthRb9oy9S2DpvLeheWla0uaUa1CtCVOpTksqcWsNP2abQHm2/qlnrmiWOs2FTxLW9oQr0ZefLJZWfR9e3l1PeU7wHu621tw69wn1OtOU9Jqu70ic31rWVR8yS9XFyWcecn6FxAAABwa98StKuNM3ffOrB+Hc1ZXFKflNSeXj4NtfL3RsI0eDWNI07WLb6tqVnTuaS6pSXWL9U+6fuj1W3Eo7cdF97xdMTxMdmsxlY7d116ZPUv0Xcq0hHmlUcGvs+qT6teeUu3mXppOz9t6VXVxZaVShVTzGc3Ko4v1Tk3h/AzlWEalKUJJOLTTT7M9/ERGLw/PEzlt5/Jq0D0anbq01K6tU8qjWnTz8G1/I85lVy1ZrMx7OjULS3v7CvY3dNVbe4pyp1YPtKLTTX4Mruyob82PR/RmmabR3TotNv6pm4VG4owzlQk3lSS7dE/ksJWWerR9PudV1Ohp1nDmr15csU+iXm236JJv4I8zHqz4M1q/g6YtEz2lUi0fd+99Ys7nc9pT0nSrOoqtKxhJycppdJzf6zWXj4/HNn0oQp0o06a5YwioxS8ljCRacuEcvq2Vra8fGWnb/AGc+n3iB7l2/qW3r1Wuo0lFzTdOpF5hNLo2n/J48vVHysx7tvXafU0rE3pxWO3HopLceg7h2xuq/1jQdLnq+lanPxa9tSeKlKr1baWMtNtvKT746YTfRTuN/atJ0dL2k9Oi3h3GoVcKPvy4Tfyz8C3wbuLW58dPh0txDHGu5iOqsTMeqptS2Buuno93qdzvO7qahRoyq07e2puFGUorPK1nqnjHZe6PVtLVHrO3bLUZYVSrDFRLtzpuMsLyWU38Czmk04tJprDT7NFMcKFKlty4tJP8A5tfVaSTeXHGHj07vyJHZtRedRNbW5iWauadRhtNo86zCXAAtLWQ/iTZajeS0Z2VhUuadC8VWvKDWYJLC6Zy85f4e6OrfW3JVNDrPQdNUrm4vKdzVipqOGstyw+7z0wvX2JqDUvo6ZJtM/wC5tU1dqRWIjs6bBzdlRdSDhPkXNF908dUeilUqUasatKpKnUhJOEoNpxfdNNdU8+Z8g2ojiOJa0z58slq2va3q8IU9U1e+vYQ+7CtXlNJ+qTeM+/cxoB5rjrSOmscQ+2va082nmW2/CXVKus8PNIva0+et4LpVJN5bdOThl+75c/MlbK3+jpU5uG1KPPzcl1VjjOeXqnj88/MsjJzzWUimovWO0TK7aW02w1mfaHIANdsAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACo/pBaPqGny0nidt6jz6ttmfPc049HcWTz4kH7JOT9oym/QsrbOtWG4tAsdc0yr4tne0Y1qUvPDXVNeTTymvJp+h7qtOFWlKlVhGcJpxlGSypJ9Gmn3RTGxq0+FXEmrw+v6jjtjXakrrb1eb6Uara57Zv4tY93Hu5vAXWAAAAAB9gH2BLWnd3+Ner/8Ab63/AHjMYZPd3+Ner/8Ab63/AHjMYbMdnONR/wCW31kJvwUhGe9OaSy4WtSUX6PMVn8G0QgkvDC8dnvfTpfq1ZujJeqkml+eH8j5PZl0ForqaTPu2D7lccdpW/6BsYTx9Ydzmn68vK+b5dY/kWOUrxxua1TdNvbTUlSpWycE+zcm8tfgv9ExU85W7d8kU0tvLugIAM6jBTPDL/mWs/8A1av/AAiXMU3wzSlZapGmnKT1aumlltv7OEvlgk9nn/uoSOkifgZPySoGWsds7ivknZ6FqdeL7Sp2s3H8cYRmKPDXfVaHNDbl0l+/OEX+DlktdtVhr5WtH83quDJbzisoiCUajw93pYW7r3O3bzw45bdNKo16vEW2viRc9Y8uPJ+5aJ+jxfHek/iiYAe7QtI1LXNSp6dpVnO6uZ5cYRx0Xq2+iXu8Fj6dwN3TXgp3d9ptp+7zynJfHCx+Ziz6zBp54yW4n2ZMWlzZvOkcwqoF0R4BX3KnPclupeaVq2vx5j6/4Arz/wCZaH/6j/8AMav7Y0f8f9Wx+zNT/ClP0bIyjw8nJppSvqjXusRX8UyzyLcMtrVdn7bekVb9Xr8aVVTUHBJPHTDb80338yUlM1mSuTPe9e0ytGlpOPDWtu8OQAa7ZAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAifFHZdjvvaNxot3LwLhNVbK6ivtW1eP3Zrzx5Neab7PDJYAK44Lbzv9atbva26IfVt26C1Qv6cu9eHRRrx9VJYy15tPopIscrPjDsvVL64tN8bLmrbd2jxbpL9W+orLlQmvPPXGcd2srKaz3C7fOm7729+kLWErW9t5eDqFhU6VLSsspxku+Mp4eOuH2aaQS4AAA+wAFa6nwsjfateX89alFXFedVQVsvs80m8Z5uvfv0OKXCTTV/hdVu5dOvLGK/jkss4+B665R87XpZmbTTzlX1PhRoEcOd7qU2u6dSGH/qGY2/sXQNFvY3lvb1KtxD7k6s+blfql2z1JT3Am0slNBp8cxNaRzAjwarpGmapCMdRsbe6UfuupBScc98PyPeD42rVraOJjlGamwtpVFLOj01zdXy1Jx/DD6HzT4f7RgsR0eDz+1WqP8AjIlHzHzHVLB90wfwR/JgrXaO2bdp0tEsm12c6Sn/AByd23dtaDtyjcUtC0iz06FzcTua0bekoqdWeOaTx5vC/BGX6nLHMstMVKR+GIgwvQAHxkdVepClRnVqSUYQi5Sb8l6mler3FO71a8u6UFTp1686sIJYUU5NpJfB4Ns+J9atQ4e69VoZ5/qNVZXdJrDf4Ns1CLR4dx+V7/SFd3u/Nq1T3gJq0NL4kWcaj5ad7TnaN+8sSj/rRivmbSmklhc1bG/t7yg+WrQqxqQa8nFpp/ijdinPnpxlhxyk8SWGjX8Q4enNXJHrH9GfZMkzjtT2l2AAr6bAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAqXifszWtH3A+JXDuCjrlKONT01L+r1Sj0ysL/3iS8u+Fjqlm2gBFeGm+NF35t6Oq6TUcKtNqF3aVHira1POEl8nh+ePZpSoq3iBw+1O31+W/OHNelpu5oJu6tZ9LbVId3Couyk8fe6dfNPElmOGHEjS95wrWFajU0jcVlmN/pNz9mrSkujccpc0c+a6rplLKyE6AAAAAAAAAAAAAAAAAAHTcUaVxQqUK1ONSlUi4TjJZUk1hpr0Kd3FwJsq9zOtoesVLOEm2qFel4kV17KWU0vjl+5c6HyNjTavNpp5x245YM+mxZ+IyRypfafA6nY6rQvdb1Wnd0qM1NW9GlhTa6pSk32z5Y6lzrscg+anVZdTbqyTyYNNjwRxjjhyADAzgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABX3FHhlp+8KtDWdPu6uh7nsvtWeq23Saa7Rnj70fL1WXjo2nYIAqPa3E7UdA1WltPizbU9G1aT5bbVYL/iN+l05lPtCXZtPC69VHoi2oyjKKlFpprKa6pmM3NoGjbm0itpOvafQv7Kr96nVWcPycWusZdejTTRVL2nxD4XydfYd9U3TtuDzLQr+p/X0Y+aoVPTv0x/dk+oF1ggnD3iltbd9Z6fTr1dL1um3GtpV/HwriE13ST+98uq80idgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABEd+8O9p72or9OaXB3cElSvaD8O5pPyaqLq8d8PK9iGfoni9sFZ0TUqO/dFh/kWoS8K/hH0jV7T+Ms+0S4QBV+3ON+zr69/Re4Prm1NXg+WpaavRdFRf9v7uPeXL8CyrW4oXVvC5ta9KvQqLMKlOalGS9U10aMfuPbmg7jtPquvaPZajRw1GNxRU3H3i31i/dYK8nwS0/Sbid3sLdOvbRryfN4VvXde2b/epTeZfBywBbIKilccedtvFSz27vW1j15qUvqdzJe6eIJ+yT/kFxtWm/Y3Zw+3foVRfen9T8agvhUXLn5IHC3QVzo/G7hfqmFS3XbW833jdU6lDHznFL8ySWW+tlXuPqm79Art+VPUaTf4cwEiB4qWqaZVgp09Ss5xfaUa8WvxyfNbWtHoLNfVrCl/buIL+YHvBHL3fWyrNZu936BQ9p6jSTfwXN1MBqXGvhdYRbrbwsqmPK3hUrN/6EWBYQKaq/SI2hcVZUNA0XcuvV+0Y2dhlN+Wcy5l+GfY+I754z7hrQht7hnR0O2nJRlc6zcZlBN/e8PMJZx1xh/MHC6AfEFKMEpS5ml1eMZfqfYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAGJ1fbW3dYy9W0HS9Qb7u5tIVH/rJkdvOEfDS7z4uy9Ijn/NUfD/2ME4AFYXHAPhPWk3/Rbw5Pzp39wvy8TB0Q+j3wqj1e368vZ6hX/wDOWsAK2s+BfCm1kp09pUZy/wCluq9RfhKbRIdM4ebE02UZ2WztCpTXaf1Gm5r+81n8yUADroUqVClGnRpxpQj0jGCSS+CR2AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAH//Z";
-
-const SB_URL = "https://qddxaetkparfwmidtuca.supabase.co";
-const SB_KEY = "sb_publishable_qaLvnyrvBpgarc_zm_7jKg_xQQ3KmKN";
+const SB_URL   = "https://qddxaetkparfwmidtuca.supabase.co";
+const SB_KEY   = "sb_publishable_qaLvnyrvBpgarc_zm_7jKg_xQQ3KmKN";
 
 const SEED = [
   {first_name:"Kasey",last_name:"Johnson",dob:"2022-02-13",caregiver:"Kaysie Douglas",caregiver_phone:"601-938-0932",caregiver_email:"kaysied95@yahoo.com",office:"MERIDIAN",insurance:"MAGNOLIA",date_received:"2025-12-08",contact1:"2025-12-11",contact2:"2025-12-17",contact3:"2026-02-05",referral_form:"YES",permission_assessment:"Completed",vineland:"Reminder Email Sent",srs2:"Completed",attends_school:"NO",iep_report:"NO",insurance_verified:"YES",autism_diagnosis:"Received",intake_paperwork:"Signed",intake_personnel:"Zanteria",status:"active"},
@@ -192,33 +214,32 @@ const SEED = [
 ];
 
 const OFFICES    = ["MERIDIAN","FOREST","FLOWOOD","DAY TREATMENT"];
-
-// Legacy office mapping — used to normalize old records from DB
-function normalizeOffice(office) {
-  if(!office) return office;
-  if(office === "JACKSON") return "FLOWOOD";
-  if(office === "SCHOOL")  return "DAY TREATMENT";
-  return office;
-}
-// Display label for offices — shows legacy note if applicable
-function officeLabel(office) {
-  if(office === "NEWTON") return '<span class="office-pill">FOREST</span> <span style="font-size:10px;color:#f59e0b;font-weight:600" title="Previously: NEWTON Clinic">↩ NEWTON</span>';
-  if(office === "JACKSON") return '<span class="office-pill">FLOWOOD</span> <span style="font-size:10px;color:#f59e0b;font-weight:600" title="Previously: JACKSON Clinic">↩ JACKSON</span>';
-  const display = normalizeOffice(office) || "";
-  return `<span class="office-pill">${display}</span>`;
-}
 const INSURANCES = ["MEDICAID OF MS","UHC","UHC Comm","MAGNOLIA","MOLINA","BCBSMS","Aetna","Tri Care","CIGNA","TruCARE","Other"];
 const BOOL       = ["YES","NO","AWAITING"];
 const STAT       = ["Completed","Emailed","Awaiting","Please Send","N/A"];
 const STAFF      = ["Zanteria","Aerianna","LaShannon","Keiara","Celia","Other"];
 const ALL_ROLES  = ["All Staff",...STAFF.filter(s=>s!=="Other")];
 
+const MODULES = [
+  {id:"dashboard",  icon:"📊", name:"Dashboard",              desc:"At-a-glance stats, alerts, and recent activity",  color:"#6366f1"},
+  {id:"intake",     icon:"📋", name:"Intake",                 desc:"Manage referrals, add new clients, track status",  color:"#22c55e"},
+  {id:"assessment", icon:"🧪", name:"Initial Assessments",    desc:"Vineland, SRS-2, IEP and assessment tracking",     color:"#f59e0b"},
+  {id:"operations", icon:"📈", name:"Operations & Insights",  desc:"Charts, trends, and performance breakdowns",       color:"#fb923c"},
+  {id:"about",      icon:"ℹ️", name:"About",                  desc:"Office locations, version history, portal info",   color:"#8b5cf6"},
+];
+
+// ── State ──
 let S = {
-  tab:1, refs:[], loading:true, seeding:false, saving:false, updatingSel:false,
-  saved:false, error:null, search:"", office:"ALL", role:"All Staff",
+  screen:"home",       // "home" | "module"
+  module:null,         // module id
+  subpage:null,        // sub-nav within module
+  refs:[], loading:true, seeding:false,
+  saving:false, updatingSel:false, saved:false, error:null,
+  search:"", office:"ALL", role:"All Staff",
   sel:null, editMode:false, editForm:{},
   step:0, form:ef(),
-  sortCol:null, sortDir:"asc"
+  sortCol:null, sortDir:"asc",
+  assessSearch:"", assessOffice:"ALL",
 };
 
 function ef(){
@@ -230,13 +251,14 @@ function ef(){
     provider_npi:"",point_of_contact:"",reason_for_referral:"",notes:"",status:"active"};
 }
 
-async function db(method,path,body){
-  const r = await fetch(SB_URL+"/rest/v1/"+path,{
+// ── DB ──
+async function dbq(method,path,body){
+  const r=await fetch(SB_URL+"/rest/v1/"+path,{
     method,
     headers:{"apikey":SB_KEY,"Authorization":"Bearer "+SB_KEY,"Content-Type":"application/json","Prefer":"return=representation"},
-    body: body?JSON.stringify(body):undefined
+    body:body?JSON.stringify(body):undefined
   });
-  const t = await r.text();
+  const t=await r.text();
   if(!r.ok) throw new Error(t);
   return t?JSON.parse(t):[];
 }
@@ -244,52 +266,47 @@ async function db(method,path,body){
 async function load(){
   try{
     S.loading=true; go();
-    const d = await db("GET","referrals?order=created_at.desc");
+    const d=await dbq("GET","referrals?order=created_at.desc");
     if(d.length===0){
       S.seeding=true; go();
-      for(const r of SEED) await db("POST","referrals",r);
-      S.refs = await db("GET","referrals?order=created_at.desc");
+      for(const r of SEED) await dbq("POST","referrals",r);
+      S.refs=await dbq("GET","referrals?order=created_at.desc");
       S.seeding=false;
     } else S.refs=d;
     S.error=null;
-  } catch(e){ S.error="Could not connect to database. Check your connection and refresh."; }
+  } catch(e){ S.error="Could not connect to database."; }
   finally{ S.loading=false; go(); }
 }
 
 async function save(){
   S.saving=true; go();
   try{
-    const r = await db("POST","referrals",S.form);
+    const r=await dbq("POST","referrals",S.form);
     S.refs=[r[0],...S.refs]; S.form=ef(); S.step=0; S.saving=false; S.saved=true; go();
-    setTimeout(()=>{ S.saved=false; S.tab=1; go(); },1800);
-  } catch(e){ S.error="Could not save referral. Please try again."; S.saving=false; go(); }
+    setTimeout(()=>{S.saved=false;go();},1800);
+  } catch(e){ S.error="Could not save."; S.saving=false; go(); }
 }
 
 async function saveEdit(){
-  const id = S.sel;
-  S.updatingSel=true; go();
+  const id=S.sel; S.updatingSel=true; go();
   try{
-    const patch = Object.assign({},S.editForm);
+    const patch=Object.assign({},S.editForm);
     delete patch.id; delete patch.created_at;
-    await db("PATCH","referrals?id=eq."+id,patch);
-    S.refs = S.refs.map(r=>r.id===id?{...r,...patch}:r);
+    await dbq("PATCH","referrals?id=eq."+id,patch);
+    S.refs=S.refs.map(r=>r.id===id?{...r,...patch}:r);
     S.editMode=false; S.updatingSel=false; go();
   } catch(e){ S.error="Could not save changes."; S.updatingSel=false; go(); }
 }
 
 async function setStatus(id,status){
   try{
-    await db("PATCH","referrals?id=eq."+id,{status});
+    await dbq("PATCH","referrals?id=eq."+id,{status});
     S.refs=S.refs.map(r=>r.id===id?{...r,status}:r);
     S.sel=null; S.editMode=false; go();
-  } catch(e){ S.error="Could not update record."; go(); }
+  } catch(e){ S.error="Could not update."; go(); }
 }
 
-async function restoreActive(id){
-  await setStatus(id,"active");
-}
-
-// ── Color logic ──
+// ── Helpers ──
 function sc(v){
   if(!v||v==="N/A") return "#64748b";
   const u=v.toUpperCase();
@@ -299,232 +316,327 @@ function sc(v){
   if(u==="NO"||u.includes("PLEASE"))                                   return "#ef4444";
   return "#64748b";
 }
-
-function bdg(v){
-  const c=sc(v);
-  return `<span class="bdg" style="background:${c}20;color:${c};border:1px solid ${c}38">${v||"—"}</span>`;
-}
-
+function bdg(v){ const c=sc(v); return `<span class="bdg" style="background:${c}20;color:${c};border:1px solid ${c}38">${v||"—"}</span>`; }
 function pct(r){
   const fs=["referral_form","permission_assessment","vineland","srs2","insurance_verified","autism_diagnosis","intake_paperwork","intake_personnel"];
   const done=fs.filter(f=>{ const v=(r[f]||"").toUpperCase(); return["YES","COMPLETED","SIGNED","RECEIVED"].some(x=>v.includes(x)); });
   return Math.round(done.length/fs.length*100);
 }
-
 function ring(p){
   const radius=18,circ=2*Math.PI*radius;
   const col=p>=80?"#22c55e":p>=50?"#f59e0b":"#ef4444";
-  return `<svg width="44" height="44" viewBox="0 0 44 44">
-    <circle cx="22" cy="22" r="${radius}" fill="none" stroke="#1a2840" stroke-width="4"/>
-    <circle cx="22" cy="22" r="${radius}" fill="none" stroke="${col}" stroke-width="4"
-      stroke-dasharray="${p/100*circ} ${circ}" stroke-linecap="round" transform="rotate(-90 22 22)"/>
-    <text x="22" y="26" text-anchor="middle" font-size="10" font-weight="700" fill="${col}" font-family="DM Mono,monospace">${p}%</text>
-  </svg>`;
+  return `<svg width="44" height="44" viewBox="0 0 44 44"><circle cx="22" cy="22" r="${radius}" fill="none" stroke="#1a2840" stroke-width="4"/><circle cx="22" cy="22" r="${radius}" fill="none" stroke="${col}" stroke-width="4" stroke-dasharray="${p/100*circ} ${circ}" stroke-linecap="round" transform="rotate(-90 22 22)"/><text x="22" y="26" text-anchor="middle" font-size="10" font-weight="700" fill="${col}" font-family="DM Mono,monospace">${p}%</text></svg>`;
 }
-
-// ── Sorting ──
-function sortRefs(list){
-  if(!S.sortCol) return list;
-  return [...list].sort((a,b)=>{
-    let av=a[S.sortCol]||"", bv=b[S.sortCol]||"";
-    if(S.sortCol==="pct"){ av=pct(a); bv=pct(b); return S.sortDir==="asc"?av-bv:bv-av; }
-    return S.sortDir==="asc"?av.localeCompare(bv):bv.localeCompare(av);
-  });
+function normalizeOffice(o){
+  if(o==="JACKSON") return "FLOWOOD";
+  if(o==="SCHOOL")  return "DAY TREATMENT";
+  if(o==="NEWTON")  return "FOREST";
+  return o;
 }
-
-function thSort(col,label){
-  const active=S.sortCol===col;
-  const cls=active?(S.sortDir==="asc"?"sort-asc":"sort-desc"):"";
-  return `<th class="${cls}" onclick="toggleSort('${col}')">${label}</th>`;
+function officeLabel(o){
+  if(o==="NEWTON")  return `<span class="office-pill">FOREST</span> <span style="font-size:10px;color:#f59e0b;font-weight:600">↩ prev. NEWTON</span>`;
+  if(o==="JACKSON") return `<span class="office-pill">FLOWOOD</span> <span style="font-size:10px;color:#f59e0b;font-weight:600">↩ prev. JACKSON</span>`;
+  return `<span class="office-pill">${normalizeOffice(o)||""}</span>`;
 }
-
 function toggleSort(col){
   if(S.sortCol===col){ S.sortDir=S.sortDir==="asc"?"desc":"asc"; }
   else{ S.sortCol=col; S.sortDir="asc"; }
   go();
 }
-
-// ── CSV Export ──
+function thSort(col,label){
+  const cls=S.sortCol===col?(S.sortDir==="asc"?"sort-asc":"sort-desc"):"";
+  return `<th class="${cls}" onclick="toggleSort('${col}')">${label}</th>`;
+}
+function sortList(list){
+  if(!S.sortCol) return list;
+  return [...list].sort((a,b)=>{
+    if(S.sortCol==="pct"){ const av=pct(a),bv=pct(b); return S.sortDir==="asc"?av-bv:bv-av; }
+    let av=a[S.sortCol]||"",bv=b[S.sortCol]||"";
+    return S.sortDir==="asc"?av.localeCompare(bv):bv.localeCompare(av);
+  });
+}
 function exportCSV(){
   const active=S.refs.filter(r=>r.status==="active");
   const cols=["first_name","last_name","dob","caregiver","caregiver_phone","caregiver_email","office","insurance","insurance_verified","autism_diagnosis","intake_paperwork","intake_personnel","referral_form","permission_assessment","vineland","srs2","attends_school","iep_report","contact1","contact2","contact3","date_received","notes","status"];
-  const header=cols.join(",");
-  const rows=active.map(r=>cols.map(c=>'"'+(r[c]||"").replace(/"/g,'""')+'"').join(","));
-  const csv=[header,...rows].join("\n");
-  const blob=new Blob([csv],{type:"text/csv"});
-  const url=URL.createObjectURL(blob);
-  const a=document.createElement("a");
-  a.href=url; a.download="bsom_active_referrals.csv"; a.click();
-  URL.revokeObjectURL(url);
+  const csv=[cols.join(","),...active.map(r=>cols.map(c=>'"'+(r[c]||"").replace(/"/g,'""')+'"').join(","))].join("\n");
+  const a=Object.assign(document.createElement("a"),{href:URL.createObjectURL(new Blob([csv],{type:"text/csv"})),download:"bsom_referrals.csv"});
+  a.click();
 }
 
 // ── Render engine ──
-function go(){ document.getElementById("app").innerHTML=html(); }
+function go(){ document.getElementById("app").innerHTML=render(); }
 
-function html(){
+function render(){
+  if(S.screen==="home") return renderHome();
+  return renderModule();
+}
+
+// ══════════════════════════════════════
+// HOME SCREEN
+// ══════════════════════════════════════
+function renderHome(){
+  return `
+    <div class="home-screen">
+      <div class="home-logo"><img src="${LOGO_SRC}" alt="BSOM"></div>
+      <div class="home-title">BSOM Intake Portal</div>
+      <div class="home-sub">Behavioral Solutions of Mississippi — Internal Staff Portal</div>
+      <div class="module-grid">
+        ${MODULES.map(m=>`
+          <div class="module-card" style="--card-color:${m.color}" onclick="enterModule('${m.id}')">
+            <div class="module-arrow">→</div>
+            <div class="module-icon">${m.icon}</div>
+            <div class="module-name">${m.name}</div>
+            <div class="module-desc">${m.desc}</div>
+          </div>`).join("")}
+      </div>
+    </div>`;
+}
+
+function enterModule(id){
+  S.module=id; S.screen="module";
+  const defaults={dashboard:"overview",intake:"all",assessment:"tracker",operations:"overview",about:"locations"};
+  S.subpage=defaults[id];
+  go();
+}
+
+// ══════════════════════════════════════
+// MODULE SHELL
+// ══════════════════════════════════════
+function renderModule(){
+  const m=MODULES.find(x=>x.id===S.module);
   const active=S.refs.filter(r=>r.status==="active");
   const nr=S.refs.filter(r=>r.status==="non-responsive"||r.status==="referred-out");
-  let fl=active.filter(r=>{
-    const n=`${r.first_name} ${r.last_name}`.toLowerCase();
-    const matchSearch=(n.includes(S.search.toLowerCase())||(r.caregiver||"").toLowerCase().includes(S.search.toLowerCase()));
-    const matchOffice=(S.office==="ALL"||normalizeOffice(r.office)===S.office||r.office===S.office);
-    const matchRole=(S.role==="All Staff"||r.intake_personnel===S.role);
-    return matchSearch&&matchOffice&&matchRole;
-  });
-  fl=sortRefs(fl);
+  const pending=active.filter(r=>!["signed","completed"].includes((r.intake_paperwork||"").toLowerCase()));
 
-  if(S.loading||S.seeding) return `
-    <div class="loader-wrap">
-      <div class="spinner"></div>
-      <div style="color:var(--muted);font-size:14px">${S.seeding?"Seeding database with referral records…":"Connecting to database…"}</div>
-    </div>`;
+  const navMap={
+    dashboard: [
+      {id:"overview",   icon:"🏠", label:"Overview"},
+    ],
+    intake: [
+      {id:"all",        icon:"📋", label:"All Referrals"},
+      {id:"new",        icon:"➕", label:"New Referral"},
+      {id:"nr",         icon:"🚫", label:"Non-Responsive", badge:nr.length>0?nr.length:null, badgeColor:""},
+    ],
+    assessment: [
+      {id:"tracker",    icon:"🧪", label:"Assessment Tracker"},
+    ],
+    operations: [
+      {id:"overview",   icon:"📈", label:"Overview"},
+      {id:"staff",      icon:"👤", label:"By Staff Member"},
+      {id:"office",     icon:"🏢", label:"By Office"},
+      {id:"trends",     icon:"📅", label:"Monthly Trends"},
+      {id:"insurance",  icon:"🛡️", label:"Insurance Breakdown"},
+    ],
+    about: [
+      {id:"locations",  icon:"📍", label:"Office Locations"},
+      {id:"versions",   icon:"🔖", label:"Version History"},
+    ],
+  };
+
+  const navItems=navMap[S.module]||[];
 
   return `
-    ${S.saved?'<div class="toast">✅ Referral saved successfully!</div>':""}
-    <nav class="nav">
-      <div class="nav-inner">
-        <div class="nav-brand">
-          <div class="nav-logo"><img src="${LOGO_SRC}" alt="BSOM Logo"></div>
+    ${S.saved?'<div class="toast">✅ Referral saved!</div>':""}
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="sidebar-logo"><img src="${LOGO_SRC}" alt="BSOM"></div>
           <div>
-            <div class="nav-title">BSOM Intake Portal</div>
-            <div class="nav-sub">Behavioral Solutions of Mississippi</div>
+            <div class="sidebar-title">BSOM Portal</div>
+            <div class="sidebar-sub">${m.icon} ${m.name}</div>
           </div>
         </div>
-        <div class="nav-tabs">
-          ${["New Referral","All Referrals","Non-Responsive / Referred Out"].map((t,i)=>`
-            <button class="nav-tab ${S.tab===i?"active":""}" onclick="S.tab=${i};go()">${t}</button>
-          `).join("")}
+        <nav class="sidebar-nav">
+          <div class="nav-section-label">Navigation</div>
+          ${navItems.map(n=>`
+            <div class="nav-item ${S.subpage===n.id?"active":""}" onclick="S.subpage='${n.id}';go()">
+              <span class="nav-icon">${n.icon}</span>
+              <span>${n.label}</span>
+              ${n.badge?`<span class="nav-badge${n.badgeColor?" "+n.badgeColor:""}">${n.badge}</span>`:"" }
+            </div>`).join("")}
+          <div class="nav-section-label" style="margin-top:16px">Modules</div>
+          ${MODULES.filter(x=>x.id!==S.module).map(x=>`
+            <div class="nav-item" onclick="enterModule('${x.id}')">
+              <span class="nav-icon">${x.icon}</span>
+              <span style="font-size:12px">${x.name}</span>
+            </div>`).join("")}
+        </nav>
+        <div class="sidebar-footer">
+          <div class="back-btn" onclick="S.screen='home';S.module=null;go()">← Back to Portal Home</div>
         </div>
-        <div class="nav-right">
-          <select class="role-select" onchange="S.role=this.value;go()">
-            ${ALL_ROLES.map(r=>`<option ${S.role===r?"selected":""}>${r}</option>`).join("")}
-          </select>
-          <div class="badge-active">${active.length} Active</div>
-          <button class="btn-refresh" onclick="load()">↻ Refresh</button>
+      </aside>
+      <div class="content">
+        <div class="topbar">
+          <div class="topbar-title">${m.icon} ${m.name}${S.subpage&&navItems.find(n=>n.id===S.subpage)?" — "+navItems.find(n=>n.id===S.subpage).label:""}</div>
+          <div class="topbar-right">
+            ${S.module==="intake"?`<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:4px 10px;color:var(--text);font-size:12px;font-weight:600" onchange="S.role=this.value;go()">${ALL_ROLES.map(r=>`<option ${S.role===r?"selected":""}>${r}</option>`).join("")}</select>`:"" }
+            <span class="badge-pill">${active.length} Active</span>
+            ${pending.length>0?`<span style="background:#f59e0b18;color:#f59e0b;border:1px solid #f59e0b30;border-radius:20px;padding:3px 12px;font-size:11.5px;font-weight:700">${pending.length} Pending Docs</span>`:""}
+            <button class="btn-sm" onclick="load()">↻ Refresh</button>
+          </div>
+        </div>
+        <div class="page">
+          ${S.error?`<div class="error-bar">⚠️ ${S.error}<button class="x-btn" onclick="S.error=null;go()">✕</button></div>`:""}
+          ${renderPage(active,nr)}
         </div>
       </div>
-    </nav>
-    <div class="main">
-      ${S.error?`<div class="error-bar">⚠️ ${S.error}<button class="x-btn" onclick="S.error=null;go()">✕</button></div>`:""}
-      ${S.tab===0?renderNewReferral():""}
-      ${S.tab===1?renderAllReferrals(active,fl):""}
-      ${S.tab===2?renderNR(nr):""}
     </div>
     ${S.sel?renderModal():""}`;
 }
 
-// ── Tab 1 ──
-function renderAllReferrals(active,fl){
-  const stats=[
-    {l:"Total Active",   v:active.length, c:"#6366f1"},
-    {l:"Fully Signed",   v:active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("signed")).length, c:"#22c55e"},
-    {l:"Pending Docs",   v:active.filter(r=>!["signed","completed"].includes((r.intake_paperwork||"").toLowerCase())).length, c:"#f59e0b"},
-    {l:"Non-Responsive", v:S.refs.filter(r=>r.status==="non-responsive"||r.status==="referred-out").length, c:"#ef4444"}
-  ];
+function renderPage(active,nr){
+  if(S.loading||S.seeding) return `<div class="loader-wrap"><div class="spinner"></div><div style="color:var(--muted)">${S.seeding?"Seeding records…":"Connecting…"}</div></div>`;
+  const mod=S.module, sub=S.subpage;
+  if(mod==="dashboard") return renderDashboard(active,nr);
+  if(mod==="intake"){
+    if(sub==="all") return renderAllReferrals(active);
+    if(sub==="new") return renderNewReferral();
+    if(sub==="nr")  return renderNR(nr);
+  }
+  if(mod==="assessment") return renderAssessments(active);
+  if(mod==="operations"){
+    if(sub==="overview")  return renderOpsOverview(active);
+    if(sub==="staff")     return renderByStaff(active);
+    if(sub==="office")    return renderByOffice(active);
+    if(sub==="trends")    return renderTrends(active);
+    if(sub==="insurance") return renderInsurance(active);
+  }
+  if(mod==="about"){
+    if(sub==="locations") return renderLocations();
+    if(sub==="versions")  return renderVersions();
+  }
+  return "";
+}
+
+// ══════════════════════════════════════
+// DASHBOARD
+// ══════════════════════════════════════
+function renderDashboard(active,nr){
+  const signed=active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("signed"));
+  const pending=active.filter(r=>!["signed","completed"].includes((r.intake_paperwork||"").toLowerCase()));
+  const noIns=active.filter(r=>r.insurance_verified==="NO"||r.insurance_verified==="AWAITING");
+  const avgPct=active.length?Math.round(active.reduce((s,r)=>s+pct(r),0)/active.length):0;
+
+  // Alerts
+  const alerts=[];
+  if(pending.length) alerts.push(`<div style="background:#f59e0b12;border:1px solid #f59e0b30;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center"><span style="color:#f59e0b;font-weight:700;font-size:13px">⚠️ ${pending.length} client${pending.length>1?"s":""} with pending paperwork</span><button class="btn-sm" onclick="enterModule('intake')" style="font-size:11px">View Intake →</button></div>`);
+  if(nr.length) alerts.push(`<div style="background:#ef444412;border:1px solid #ef444430;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center"><span style="color:#ef4444;font-weight:700;font-size:13px">🚫 ${nr.length} non-responsive / referred out</span><button class="btn-sm" onclick="S.subpage='nr';S.module='intake';go()" style="font-size:11px">View →</button></div>`);
+  if(noIns.length) alerts.push(`<div style="background:#6366f112;border:1px solid #6366f130;border-radius:10px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center"><span style="color:#a5b4fc;font-weight:700;font-size:13px">🛡️ ${noIns.length} unverified insurance records</span><button class="btn-sm" onclick="enterModule('assessment')" style="font-size:11px">View →</button></div>`);
+
+  // Recent 5
+  const recent=active.slice(0,5);
+
   return `
-    <div class="stats-grid">
-      ${stats.map(s=>`<div class="stat-box"><div class="stat-num" style="color:${s.c}">${s.v}</div><div class="stat-label">${s.l}</div></div>`).join("")}
+    <div class="stats-row stats-4" style="margin-bottom:20px">
+      <div class="stat-box"><div class="stat-num" style="color:#6366f1">${active.length}</div><div class="stat-label">Active Referrals</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#22c55e">${signed.length}</div><div class="stat-label">Fully Signed</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#f59e0b">${pending.length}</div><div class="stat-label">Pending Docs</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#fb923c">${nr.length}</div><div class="stat-label">Non-Responsive</div></div>
     </div>
-    <div class="filter-row">
-      <div class="search-wrap">
-        <span class="search-icon">🔍</span>
-        <input class="search-input" placeholder="Search by name or caregiver..." value="${S.search}" oninput="S.search=this.value;go()">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:20px">
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px">🔔 Alerts</div>
+        ${alerts.length?`<div style="display:flex;flex-direction:column;gap:8px">${alerts.join("")}</div>`:`<div style="color:var(--dim);font-size:13px;padding:20px;text-align:center;background:var(--surface);border:1px solid var(--border);border-radius:10px">✅ No alerts — everything looks good!</div>`}
       </div>
-      <div class="filter-btns">
-        ${["ALL",...OFFICES].map(o=>`<button class="filter-btn ${S.office===o?"active":""}" onclick="S.office='${o}';go()">${o}</button>`).join("")}
-      </div>
-      <div style="margin-left:auto">
-        <button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button>
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:12px">📊 Overall Progress</div>
+        <div class="card card-pad" style="display:flex;flex-direction:column;gap:14px">
+          <div>
+            <div style="display:flex;justify-content:space-between;margin-bottom:6px"><span style="font-size:12px;color:var(--muted)">Average completion</span><span style="font-size:13px;font-weight:700;color:#6366f1">${avgPct}%</span></div>
+            <div style="background:var(--surface2);border-radius:4px;height:8px"><div style="width:${avgPct}%;height:8px;border-radius:4px;background:linear-gradient(90deg,#6366f1,#8b5cf6);transition:width 0.6s"></div></div>
+          </div>
+          <div class="info-row"><span class="info-label">Paperwork signed</span><span style="color:#22c55e;font-weight:700">${signed.length} / ${active.length}</span></div>
+          <div class="info-row"><span class="info-label">Insurance verified</span><span style="color:#f59e0b;font-weight:700">${active.filter(r=>r.insurance_verified==="YES").length} / ${active.length}</span></div>
+          <div class="info-row" style="border:none"><span class="info-label">Autism DX received</span><span style="color:#a5b4fc;font-weight:700">${active.filter(r=>(r.autism_diagnosis||"").toLowerCase().includes("received")).length} / ${active.length}</span></div>
+        </div>
       </div>
     </div>
-    <div class="card">
-      <div class="table-wrap">
-        <table>
-          <thead>
-            <tr>
-              ${thSort("pct","Progress")}
-              ${thSort("last_name","Client")}
-              ${thSort("dob","DOB")}
-              ${thSort("caregiver","Caregiver")}
-              ${thSort("office","Office")}
-              ${thSort("insurance","Insurance")}
-              ${thSort("insurance_verified","Ins. Verified")}
-              ${thSort("autism_diagnosis","Autism DX")}
-              ${thSort("intake_paperwork","Paperwork")}
-              ${thSort("intake_personnel","Personnel")}
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            ${fl.length===0
-              ?`<tr><td colspan="11" style="padding:56px;text-align:center;color:var(--dim)">No referrals found.</td></tr>`
-              :fl.map(r=>`
-              <tr class="row-hover" onclick="S.sel='${r.id}';S.editMode=false;go()">
-                <td>${ring(pct(r))}</td>
-                <td>
-                  <div class="client-name">${r.first_name} ${r.last_name}</div>
-                  <div class="client-date">${r.date_received||""}</div>
-                </td>
-                <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">${r.dob||"—"}</td>
-                <td>
-                  <div class="caregiver-name">${r.caregiver||""}</div>
-                  <div class="caregiver-phone">${r.caregiver_phone||""}</div>
-                </td>
-                <td><span class="office-pill">${r.office||""}</span></td>
-                <td class="ins-text">${r.insurance||"—"}</td>
-                <td>${bdg(r.insurance_verified)}</td>
-                <td>${bdg(r.autism_diagnosis)}</td>
-                <td>${bdg(r.intake_paperwork)}</td>
-                <td style="color:var(--dim);font-size:12px">${r.intake_personnel||"—"}</td>
-                <td class="arrow-btn">→</td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
-      </div>
+    <div>
+      <div style="font-size:13px;font-weight:700;margin-bottom:12px">🕐 Recently Added</div>
+      <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>Client</th><th>Office</th><th>Personnel</th><th>Paperwork</th><th>Progress</th><th></th></tr></thead>
+        <tbody>
+          ${recent.map(r=>`<tr class="row-hover" onclick="S.sel='${r.id}';S.module='intake';S.subpage='all';S.editMode=false;go()">
+            <td><div style="font-weight:700">${r.first_name} ${r.last_name}</div><div style="font-size:11px;color:var(--dim)">${r.date_received||""}</div></td>
+            <td>${officeLabel(r.office)}</td>
+            <td style="font-size:12px;color:var(--muted)">${r.intake_personnel||"—"}</td>
+            <td>${bdg(r.intake_paperwork)}</td>
+            <td>${ring(pct(r))}</td>
+            <td style="color:var(--accent)">→</td>
+          </tr>`).join("")}
+        </tbody>
+      </table></div></div>
     </div>`;
 }
 
-// ── Tab 2: Non-Responsive ──
+// ══════════════════════════════════════
+// INTAKE — All Referrals
+// ══════════════════════════════════════
+function renderAllReferrals(active){
+  let fl=active.filter(r=>{
+    const n=`${r.first_name} ${r.last_name}`.toLowerCase();
+    return (n.includes(S.search.toLowerCase())||(r.caregiver||"").toLowerCase().includes(S.search.toLowerCase()))
+        && (S.office==="ALL"||normalizeOffice(r.office)===S.office||r.office===S.office)
+        && (S.role==="All Staff"||r.intake_personnel===S.role);
+  });
+  fl=sortList(fl);
+  return `
+    <div class="filter-row">
+      <div class="search-wrap"><span class="search-icon">🔍</span><input class="search-input" placeholder="Search name or caregiver..." value="${S.search}" oninput="S.search=this.value;go()"></div>
+      <div class="filter-btns">${["ALL",...OFFICES].map(o=>`<button class="filter-btn ${S.office===o?"active":""}" onclick="S.office='${o}';go()">${o}</button>`).join("")}</div>
+      <div style="margin-left:auto"><button class="btn-export" onclick="exportCSV()">⬇ Export CSV</button></div>
+    </div>
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr>
+        ${thSort("pct","Progress")}${thSort("last_name","Client")}${thSort("dob","DOB")}
+        ${thSort("caregiver","Caregiver")}${thSort("office","Office")}${thSort("insurance","Insurance")}
+        ${thSort("insurance_verified","Ins. Verified")}${thSort("autism_diagnosis","Autism DX")}
+        ${thSort("intake_paperwork","Paperwork")}${thSort("intake_personnel","Personnel")}<th></th>
+      </tr></thead>
+      <tbody>
+        ${fl.length===0?`<tr><td colspan="11" style="padding:56px;text-align:center;color:var(--dim)">No referrals found.</td></tr>`:fl.map(r=>`
+        <tr class="row-hover" onclick="S.sel='${r.id}';S.editMode=false;go()">
+          <td>${ring(pct(r))}</td>
+          <td><div style="font-weight:700">${r.first_name} ${r.last_name}</div><div style="font-size:11px;color:var(--dim)">${r.date_received||""}</div></td>
+          <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">${r.dob||"—"}</td>
+          <td><div style="color:#cbd5e1">${r.caregiver||""}</div><div style="font-size:11px;color:var(--dim);font-family:'DM Mono',monospace">${r.caregiver_phone||""}</div></td>
+          <td>${officeLabel(r.office)}</td>
+          <td style="color:var(--muted);font-size:12px">${r.insurance||"—"}</td>
+          <td>${bdg(r.insurance_verified)}</td><td>${bdg(r.autism_diagnosis)}</td><td>${bdg(r.intake_paperwork)}</td>
+          <td style="color:var(--dim);font-size:12px">${r.intake_personnel||"—"}</td>
+          <td style="color:var(--accent)">→</td>
+        </tr>`).join("")}
+      </tbody>
+    </table></div></div>`;
+}
+
+// ══════════════════════════════════════
+// INTAKE — Non-Responsive
+// ══════════════════════════════════════
 function renderNR(nr){
   return `
-    <div style="margin-bottom:20px">
-      <div style="font-weight:800;font-size:18px;letter-spacing:-0.01em">Non-Responsive / Referred Out</div>
-      <div style="color:var(--muted);font-size:13px;margin-top:4px">Clients who could not be reached or were referred elsewhere</div>
-    </div>
-    <div class="card">
-      <div class="table-wrap">
-        <table class="nr-table">
-          <thead>
-            <tr><th>Client</th><th>Caregiver</th><th>Phone</th><th>Office</th><th>Insurance</th><th>Coordinator</th><th>Status</th><th>Action</th></tr>
-          </thead>
-          <tbody>
-            ${nr.length===0
-              ?`<tr><td colspan="8" style="padding:56px;text-align:center;color:var(--dim)">No non-responsive clients yet.</td></tr>`
-              :nr.map(r=>`
-              <tr>
-                <td style="font-weight:700;color:var(--text)">${r.first_name} ${r.last_name}</td>
-                <td>${r.caregiver||"—"}</td>
-                <td style="font-family:'DM Mono',monospace;font-size:12px">${r.caregiver_phone||"—"}</td>
-                <td><span class="office-pill">${r.office||"—"}</span></td>
-                <td style="font-size:12px">${r.insurance||"—"}</td>
-                <td style="font-size:12px">${r.intake_personnel||"—"}</td>
-                <td>${r.status==="referred-out"
-                  ?`<span class="bdg" style="background:#8b5cf620;color:#8b5cf6;border:1px solid #8b5cf635">Referred Out</span>`
-                  :`<span class="bdg" style="background:#ef444420;color:#ef4444;border:1px solid #ef444435">Non-Responsive</span>`}
-                </td>
-                <td>
-                  <button onclick="event.stopPropagation();restoreActive('${r.id}')" style="padding:4px 11px;border-radius:6px;border:1px solid #22c55e40;background:#22c55e15;color:#22c55e;font-size:11px;font-weight:700;cursor:pointer">
-                    ↩ Restore Active
-                  </button>
-                </td>
-              </tr>`).join("")}
-          </tbody>
-        </table>
-      </div>
-    </div>`;
+    <div style="margin-bottom:20px"><div style="font-weight:800;font-size:18px">Non-Responsive / Referred Out</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Clients who could not be reached or were referred elsewhere</div></div>
+    <div class="card"><div class="table-wrap"><table>
+      <thead><tr><th>Client</th><th>Caregiver</th><th>Phone</th><th>Office</th><th>Insurance</th><th>Coordinator</th><th>Status</th><th>Action</th></tr></thead>
+      <tbody>
+        ${nr.length===0?`<tr><td colspan="8" style="padding:56px;text-align:center;color:var(--dim)">No non-responsive clients.</td></tr>`:nr.map(r=>`
+        <tr>
+          <td style="font-weight:700">${r.first_name} ${r.last_name}</td>
+          <td style="color:var(--muted)">${r.caregiver||"—"}</td>
+          <td style="font-family:'DM Mono',monospace;font-size:12px;color:var(--muted)">${r.caregiver_phone||"—"}</td>
+          <td>${officeLabel(r.office)}</td>
+          <td style="font-size:12px;color:var(--muted)">${r.insurance||"—"}</td>
+          <td style="font-size:12px;color:var(--muted)">${r.intake_personnel||"—"}</td>
+          <td>${r.status==="referred-out"?`<span class="bdg" style="background:#8b5cf620;color:#8b5cf6;border:1px solid #8b5cf635">Referred Out</span>`:`<span class="bdg" style="background:#ef444420;color:#ef4444;border:1px solid #ef444435">Non-Responsive</span>`}</td>
+          <td><button onclick="setStatus('${r.id}','active')" style="padding:4px 11px;border-radius:6px;border:1px solid #22c55e40;background:#22c55e15;color:#22c55e;font-size:11px;font-weight:700;cursor:pointer">↩ Restore</button></td>
+        </tr>`).join("")}
+      </tbody>
+    </table></div></div>`;
 }
 
-// ── Tab 0: New Referral ──
+// ══════════════════════════════════════
+// INTAKE — New Referral
+// ══════════════════════════════════════
 function renderNewReferral(){
   if(S.saved) return `<div style="text-align:center;padding:72px"><div style="font-size:56px;margin-bottom:16px">✅</div><div style="font-size:22px;font-weight:800">Referral Saved!</div></div>`;
   const steps=[["👤","Client Info"],["🏥","Insurance"],["📋","Referral Source"],["✅","Checklist"]];
@@ -539,6 +651,7 @@ function renderNewReferral(){
     ["Autism Diagnosis Docs","autism_diagnosis",["Received","Requested","Awaiting","N/A"]],
     ["Intake Paperwork","intake_paperwork",["Signed","Emailed via Adobe","Awaiting","N/A"]]
   ];
+  const sc2=sc;
   const stepContent=[
     `<div class="section-hdr">👤 Client Information</div>
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
@@ -556,20 +669,12 @@ function renderNewReferral(){
        <div><label class="label">Email</label><input class="input-field" value="${f.caregiver_email}" oninput="S.form.caregiver_email=this.value" placeholder="email@example.com"></div>
      </div>
      <div><label class="label">Office</label><select class="input-field" onchange="S.form.office=this.value"><option value="">Select Office</option>${OFFICES.map(o=>`<option ${f.office===o?"selected":""}>${o}</option>`).join("")}</select></div>`,
-
     `<div class="section-hdr">🏥 Insurance</div>
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px">
        <div><label class="label">Primary</label><select class="input-field" onchange="S.form.insurance=this.value"><option value="">Select</option>${INSURANCES.map(i=>`<option ${f.insurance===i?"selected":""}>${i}</option>`).join("")}</select></div>
        <div><label class="label">Secondary</label><select class="input-field" onchange="S.form.secondary_insurance=this.value"><option value="">None</option>${INSURANCES.map(i=>`<option ${f.secondary_insurance===i?"selected":""}>${i}</option>`).join("")}</select></div>
      </div>
-     <div><label class="label">Insurance Docs Verified</label>
-       <div style="display:flex;gap:8px;margin-top:8px">
-         ${BOOL.map(o=>{ const c=sc(o); const a=f.insurance_verified===o;
-           return `<button onclick="S.form.insurance_verified='${o}';go()" style="padding:8px 20px;border-radius:8px;border:1px solid ${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"};font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;transition:all 0.15s">${o}</button>`;
-         }).join("")}
-       </div>
-     </div>`,
-
+     <div><label class="label">Insurance Docs Verified</label><div style="display:flex;gap:8px;margin-top:8px">${BOOL.map(o=>{const c=sc2(o);const a=f.insurance_verified===o;return`<button onclick="S.form.insurance_verified='${o}';go()" style="padding:8px 20px;border-radius:8px;border:1px solid ${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"};font-weight:700;font-size:13px;cursor:pointer;font-family:inherit">${o}</button>`;}).join("")}</div></div>`,
     `<div class="section-hdr">📋 Referral Source</div>
      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px">
        <div><label class="label">Agency / Clinic</label><input class="input-field" value="${f.referral_source}" oninput="S.form.referral_source=this.value" placeholder="Agency Name"></div>
@@ -579,201 +684,313 @@ function renderNewReferral(){
      </div>
      <div style="margin-bottom:16px"><label class="label">Provider / NPI #</label><input class="input-field" value="${f.provider_npi}" oninput="S.form.provider_npi=this.value" placeholder="Provider Name and NPI"></div>
      <div><label class="label">Reason for Referral (ICD-10)</label><textarea class="input-field" rows="4" oninput="S.form.reason_for_referral=this.value" style="resize:vertical" placeholder="e.g. Safety Risk, SIB, elopement. F84.0">${f.reason_for_referral}</textarea></div>`,
-
     `<div class="section-hdr">✅ Intake Checklist</div>
-     ${cl.map(([label,key,opts])=>`
-       <div class="checklist-row">
-         <span style="font-size:13.5px;color:#cbd5e1">${label}</span>
-         <div style="display:flex;gap:6px;flex-wrap:wrap">
-           ${opts.map(o=>{ const c=sc(o); const a=f[key]===o;
-             return `<button class="opt-btn" onclick="S.form['${key}']='${o}';go()" style="border-color:${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"}">${o}</button>`;
-           }).join("")}
-         </div>
-       </div>`).join("")}
+     ${cl.map(([label,key,opts])=>`<div class="checklist-row"><span style="font-size:13px;color:#cbd5e1">${label}</span><div style="display:flex;gap:6px;flex-wrap:wrap">${opts.map(o=>{const c=sc2(o);const a=f[key]===o;return`<button class="opt-btn" onclick="S.form['${key}']='${o}';go()" style="border-color:${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"}">${o}</button>`;}).join("")}</div></div>`).join("")}
      <div style="margin-top:20px;display:grid;grid-template-columns:1fr 1fr;gap:16px">
-       <div>
-         <label class="label">Contact Attempts</label>
-         <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">
-           ${[["contact1","1st"],["contact2","2nd"],["contact3","3rd"]].map(([k,l])=>`
-             <div>
-               <div style="font-size:11px;color:var(--dim);margin-bottom:4px">${l}</div>
-               <input type="date" class="input-field" value="${f[k]}" oninput="S.form['${k}']=this.value" style="font-size:12px;padding:7px 8px">
-             </div>`).join("")}
-         </div>
-       </div>
+       <div><label class="label">Contact Attempts</label><div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px">${[["contact1","1st"],["contact2","2nd"],["contact3","3rd"]].map(([k,l])=>`<div><div style="font-size:11px;color:var(--dim);margin-bottom:4px">${l}</div><input type="date" class="input-field" value="${f[k]}" oninput="S.form['${k}']=this.value" style="font-size:12px;padding:7px 8px"></div>`).join("")}</div></div>
        <div><label class="label">Intake Personnel</label><select class="input-field" onchange="S.form.intake_personnel=this.value"><option value="">Select Staff</option>${STAFF.map(p=>`<option ${f.intake_personnel===p?"selected":""}>${p}</option>`).join("")}</select></div>
      </div>
      <div style="margin-top:16px"><label class="label">Notes</label><textarea class="input-field" rows="3" oninput="S.form.notes=this.value" style="resize:vertical" placeholder="Additional notes…">${f.notes}</textarea></div>`
   ];
+  return `<div style="max-width:700px;margin:0 auto">
+    <div class="stepper">${steps.map(([icon,label],i)=>`<div style="display:flex;align-items:center;${i<steps.length-1?"flex:1":""}"><div class="step-dot-wrap"><button class="step-dot ${S.step===i?"current":S.step>i?"done":"future"}" onclick="if(${i}<=S.step){S.step=${i};go()}">${S.step>i?"✓":icon}</button><span class="step-label" style="color:${S.step===i?"#a5b4fc":"var(--dim)"}">${label}</span></div>${i<steps.length-1?`<div class="step-line" style="background:${S.step>i?"var(--green)":"var(--border)"}"></div>`:""}</div>`).join("")}</div>
+    <div class="card" style="padding:28px">
+      ${stepContent[S.step]}
+      <div style="display:flex;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)">
+        <button class="btn-ghost" onclick="if(S.step>0){S.step--;go()}" ${S.step===0?'style="opacity:0.3;pointer-events:none"':""}>← Back</button>
+        ${S.step<3?`<button class="btn-primary" onclick="S.step++;go()">Continue →</button>`:`<button class="btn-save" onclick="save()" ${S.saving?"disabled":""}>${S.saving?"Saving…":"✓ Save Referral"}</button>`}
+      </div>
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════
+// INITIAL ASSESSMENTS
+// ══════════════════════════════════════
+function renderAssessments(active){
+  const fields=[
+    ["Permission","permission_assessment"],
+    ["Vineland","vineland"],
+    ["SRS-2","srs2"],
+    ["IEP Report","iep_report"],
+    ["Autism DX","autism_diagnosis"],
+  ];
+  let fl=active.filter(r=>{
+    const n=`${r.first_name} ${r.last_name}`.toLowerCase();
+    return n.includes(S.assessSearch.toLowerCase())
+        && (S.assessOffice==="ALL"||normalizeOffice(r.office)===S.assessOffice||r.office===S.assessOffice);
+  });
+
+  const complete=fl.filter(r=>fields.every(([,k])=>{const v=(r[k]||"").toUpperCase();return["YES","COMPLETED","SIGNED","RECEIVED"].some(x=>v.includes(x))}));
+  const inProgress=fl.filter(r=>!fields.every(([,k])=>{const v=(r[k]||"").toUpperCase();return["YES","COMPLETED","SIGNED","RECEIVED"].some(x=>v.includes(x))}));
 
   return `
-    <div style="max-width:720px;margin:0 auto">
-      <div class="stepper">
-        ${steps.map(([icon,label],i)=>`
-          <div style="display:flex;align-items:center;${i<steps.length-1?"flex:1":""}">
-            <div class="step-dot-wrap">
-              <button class="step-dot ${S.step===i?"current":S.step>i?"done":"future"}"
-                onclick="if(${i}<=S.step){S.step=${i};go()}">${S.step>i?"✓":icon}</button>
-              <span class="step-label" style="color:${S.step===i?"#a5b4fc":"var(--dim)"}">${label}</span>
-            </div>
-            ${i<steps.length-1?`<div class="step-line" style="background:${S.step>i?"var(--green)":"var(--border)"}"></div>`:""}
-          </div>`).join("")}
-      </div>
-      <div class="card" style="padding:28px">
-        ${stepContent[S.step]}
-        <div style="display:flex;justify-content:space-between;margin-top:28px;padding-top:20px;border-top:1px solid var(--border)">
-          <button class="btn-ghost" onclick="if(S.step>0){S.step--;go()}" ${S.step===0?'style="opacity:0.3;pointer-events:none"':""}>← Back</button>
-          ${S.step<3
-            ?`<button class="btn-primary" onclick="S.step++;go()">Continue →</button>`
-            :`<button class="btn-save" onclick="save()" ${S.saving?"disabled":""}>${S.saving?"Saving…":"✓ Save Referral"}</button>`}
+    <div class="stats-row stats-3" style="margin-bottom:20px">
+      <div class="stat-box"><div class="stat-num" style="color:#6366f1">${fl.length}</div><div class="stat-label">Total Clients</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#22c55e">${complete.length}</div><div class="stat-label">All Assessments Complete</div></div>
+      <div class="stat-box"><div class="stat-num" style="color:#f59e0b">${inProgress.length}</div><div class="stat-label">In Progress</div></div>
+    </div>
+    <div class="filter-row">
+      <div class="search-wrap"><span class="search-icon">🔍</span><input class="search-input" placeholder="Search client..." value="${S.assessSearch}" oninput="S.assessSearch=this.value;go()"></div>
+      <div class="filter-btns">${["ALL",...OFFICES].map(o=>`<button class="filter-btn ${S.assessOffice===o?"active":""}" onclick="S.assessOffice='${o}';go()">${o}</button>`).join("")}</div>
+    </div>
+    <div class="card"><div class="table-wrap"><table>
+      <thead>
+        <tr>
+          <th>Client</th><th>Office</th><th>Personnel</th>
+          ${fields.map(([l])=>`<th>${l}</th>`).join("")}
+          <th>Overall</th>
+        </tr>
+      </thead>
+      <tbody>
+        ${fl.length===0?`<tr><td colspan="${5+fields.length}" style="padding:56px;text-align:center;color:var(--dim)">No clients found.</td></tr>`:fl.map(r=>`
+        <tr class="row-hover" onclick="S.sel='${r.id}';S.module='intake';S.subpage='all';S.editMode=false;go()">
+          <td><div style="font-weight:700">${r.first_name} ${r.last_name}</div><div style="font-size:11px;color:var(--dim)">${r.dob||""}</div></td>
+          <td>${officeLabel(r.office)}</td>
+          <td style="font-size:12px;color:var(--muted)">${r.intake_personnel||"—"}</td>
+          ${fields.map(([,k])=>`<td>${bdg(r[k])}</td>`).join("")}
+          <td>${ring(pct(r))}</td>
+        </tr>`).join("")}
+      </tbody>
+    </table></div></div>`;
+}
+
+// ══════════════════════════════════════
+// OPERATIONS & INSIGHTS
+// ══════════════════════════════════════
+function barChart(items,color="#6366f1"){
+  const max=Math.max(...items.map(i=>i.v),1);
+  return `<div class="bar-chart">${items.map(i=>`
+    <div class="bar-row">
+      <span class="bar-label">${i.l}</span>
+      <div class="bar-track">
+        <div class="bar-fill" style="width:${Math.round(i.v/max*100)}%;background:${i.color||color}">
+          <span class="bar-val">${i.v}</span>
         </div>
+      </div>
+    </div>`).join("")}</div>`;
+}
+
+function renderOpsOverview(active){
+  const byOffice=OFFICES.map(o=>{const v=active.filter(r=>normalizeOffice(r.office)===o).length;return{l:o,v};});
+  const byStaff=STAFF.filter(s=>s!=="Other").map(s=>{const v=active.filter(r=>r.intake_personnel===s).length;return{l:s,v};}).filter(x=>x.v>0);
+  const paperwork=[
+    {l:"Signed",v:active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("signed")).length,color:"#22c55e"},
+    {l:"Emailed via Adobe",v:active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("emailed")).length,color:"#f59e0b"},
+    {l:"Please Send",v:active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("please")).length,color:"#ef4444"},
+    {l:"Awaiting",v:active.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("awaiting")).length,color:"#fb923c"},
+  ].filter(x=>x.v>0);
+  return `
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
+      <div class="card card-pad"><div class="chart-title">Referrals by Office</div>${barChart(byOffice,"#6366f1")}</div>
+      <div class="card card-pad"><div class="chart-title">Referrals by Staff Member</div>${barChart(byStaff,"#22c55e")}</div>
+      <div class="card card-pad" style="grid-column:1/-1"><div class="chart-title">Paperwork Status Breakdown</div>${barChart(paperwork)}</div>
+    </div>`;
+}
+
+function renderByStaff(active){
+  return `<div style="display:flex;flex-direction:column;gap:16px">
+    ${STAFF.filter(s=>s!=="Other").map(s=>{
+      const clients=active.filter(r=>r.intake_personnel===s);
+      if(!clients.length) return "";
+      const signed=clients.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("signed")).length;
+      return `<div class="card card-pad">
+        <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
+          <div style="font-weight:700;font-size:15px">${s}</div>
+          <div style="display:flex;gap:8px">
+            <span class="bdg" style="background:#6366f120;color:#a5b4fc;border:1px solid #6366f130">${clients.length} clients</span>
+            <span class="bdg" style="background:#22c55e20;color:#22c55e;border:1px solid #22c55e30">${signed} signed</span>
+          </div>
+        </div>
+        <div class="bar-chart">
+          ${[["Signed","#22c55e"],["Pending","#f59e0b"],["Non-Responsive","#ef4444"]].map(([l,c])=>{
+            const count=l==="Signed"?signed:l==="Pending"?clients.filter(r=>!["signed","completed"].includes((r.intake_paperwork||"").toLowerCase())).length:0;
+            return `<div class="bar-row"><span class="bar-label">${l}</span><div class="bar-track"><div class="bar-fill" style="width:${clients.length?Math.round(count/clients.length*100):0}%;background:${c}"><span class="bar-val">${count}</span></div></div></div>`;
+          }).join("")}
+        </div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+
+function renderByOffice(active){
+  return `<div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+    ${OFFICES.map(o=>{
+      const clients=active.filter(r=>normalizeOffice(r.office)===o);
+      const signed=clients.filter(r=>(r.intake_paperwork||"").toLowerCase().includes("signed")).length;
+      const avgP=clients.length?Math.round(clients.reduce((s,r)=>s+pct(r),0)/clients.length):0;
+      return `<div class="card card-pad">
+        <div style="display:flex;justify-content:space-between;margin-bottom:14px">
+          <div style="font-weight:700;font-size:14px">${o}</div>
+          <span class="office-pill">${clients.length} clients</span>
+        </div>
+        <div class="info-row"><span class="info-label">Fully signed</span><span style="color:#22c55e;font-weight:700">${signed}</span></div>
+        <div class="info-row"><span class="info-label">Avg completion</span><span style="color:#6366f1;font-weight:700">${avgP}%</span></div>
+        <div class="info-row" style="border:none"><span class="info-label">Staff</span><span style="font-size:12px;color:var(--muted)">${[...new Set(clients.map(r=>r.intake_personnel).filter(Boolean))].join(", ")||"—"}</span></div>
+      </div>`;
+    }).join("")}
+  </div>`;
+}
+
+function renderTrends(active){
+  const byMonth={};
+  active.forEach(r=>{
+    if(!r.date_received) return;
+    const key=r.date_received.slice(0,7);
+    byMonth[key]=(byMonth[key]||0)+1;
+  });
+  const months=Object.keys(byMonth).sort();
+  const items=months.map(m=>{
+    const [y,mo]=m.split("-");
+    const label=new Date(y,parseInt(mo)-1).toLocaleString("default",{month:"short",year:"2-digit"});
+    return {l:label,v:byMonth[m],color:"#6366f1"};
+  });
+  return `<div class="card card-pad"><div class="chart-title">Monthly Intake Trends</div>
+    ${items.length?barChart(items,"#6366f1"):`<div style="color:var(--dim);text-align:center;padding:40px">No date data available.</div>`}
+  </div>`;
+}
+
+function renderInsurance(active){
+  const counts={};
+  active.forEach(r=>{if(r.insurance)counts[r.insurance]=(counts[r.insurance]||0)+1;});
+  const colors=["#6366f1","#22c55e","#f59e0b","#fb923c","#ef4444","#8b5cf6","#06b6d4","#ec4899","#a3e635","#f97316"];
+  const items=Object.entries(counts).sort((a,b)=>b[1]-a[1]).map(([l,v],i)=>{return{l,v,color:colors[i%colors.length]}});
+  return `<div class="card card-pad"><div class="chart-title">Insurance Type Breakdown</div>
+    ${barChart(items)}
+    <div style="margin-top:20px;display:flex;flex-wrap:wrap;gap:10px">
+      ${items.map(i=>`<div class="legend-item"><div class="legend-dot" style="background:${i.color}"></div>${i.l} (${i.v})</div>`).join("")}
+    </div>
+  </div>`;
+}
+
+// ══════════════════════════════════════
+// ABOUT
+// ══════════════════════════════════════
+function renderLocations(){
+  const offices=[
+    {name:"Meridian",addr:"Meridian, MS",phone:"601-000-0000",type:"Main Office"},
+    {name:"Forest",addr:"Forest, MS (formerly serves Newton area)",phone:"601-000-0000",type:"Clinic"},
+    {name:"Flowood",addr:"Flowood, MS (formerly serves Jackson area)",phone:"601-000-0000",type:"Clinic"},
+    {name:"Day Treatment",addr:"Various Locations, MS",phone:"601-000-0000",type:"Day Treatment Program"},
+  ];
+  return `
+    <div style="margin-bottom:20px"><div style="font-weight:800;font-size:18px">Office Locations</div><div style="color:var(--muted);font-size:13px;margin-top:4px">Current BSOM clinic and office locations</div></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+      ${offices.map(o=>`
+        <div class="about-card">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px">
+            <div style="font-weight:800;font-size:16px">📍 ${o.name}</div>
+            <span class="bdg" style="background:#6366f120;color:#a5b4fc;border:1px solid #6366f130">${o.type}</span>
+          </div>
+          <div style="color:var(--muted);font-size:13px;margin-bottom:6px">${o.addr}</div>
+          <div style="color:var(--dim);font-size:12px;font-family:'DM Mono',monospace">${o.phone}</div>
+        </div>`).join("")}
+    </div>
+    <div class="about-card" style="margin-top:16px;border-color:#f59e0b40">
+      <div style="font-weight:700;color:#f59e0b;margin-bottom:8px">📋 Office Consolidation Notes</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.7">
+        • <strong style="color:var(--text)">Newton Clinic</strong> has been merged into the Forest office. Existing client records from Newton are preserved with a migration badge.<br>
+        • <strong style="color:var(--text)">Jackson Clinic</strong> has been consolidated into the Flowood office. Records show legacy assignment for documentation purposes.<br>
+        • <strong style="color:var(--text)">School</strong> program has been renamed to <strong style="color:var(--text)">Day Treatment</strong>.
       </div>
     </div>`;
 }
 
-// ── Modal ──
+function renderVersions(){
+  const versions=[
+    {v:"v04",date:"2026-04",note:"Multi-module portal architecture. Added Dashboard, Initial Assessments, Operations & Insights, About modules. Office consolidation (Newton→Forest, Jackson→Flowood, School→Day Treatment). Legacy migration badges added."},
+    {v:"v03",date:"2026-03",note:"Added BSOM logo, edit mode in modal, CSV export, role-based view, sortable columns, restore active from non-responsive, office rename to Day Treatment."},
+    {v:"v02",date:"2026-03",note:"Fresh rebuild from v01. Improved dark theme, progress rings, color-coded badges, 4-step new referral form, detail modal, non-responsive tracking. Supabase integration."},
+    {v:"v01",date:"2026-03",note:"Initial intake tracker build. Basic referral table, status badges, Supabase seed data for 13 active referrals."},
+  ];
+  return `
+    <div style="margin-bottom:20px"><div style="font-weight:800;font-size:18px">Version History</div><div style="color:var(--muted);font-size:13px;margin-top:4px">BSOM Intake Portal release notes</div></div>
+    <div class="about-card">
+      ${versions.map((ver,i)=>`
+        <div class="version-row" style="${i===versions.length-1?"border:none":""}">
+          <div style="flex:1;padding-right:20px">
+            <div style="font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:10px">
+              <span class="version-tag">${ver.v}</span>
+              ${i===0?`<span style="background:#22c55e20;color:#22c55e;border:1px solid #22c55e30;border-radius:6px;padding:1px 8px;font-size:10px;font-weight:700">Current</span>`:""}
+            </div>
+            <div style="font-size:12px;color:var(--muted);margin-top:6px;line-height:1.6">${ver.note}</div>
+          </div>
+          <div style="font-size:11px;color:var(--dim);font-family:'DM Mono',monospace;flex-shrink:0">${ver.date}</div>
+        </div>`).join("")}
+    </div>`;
+}
+
+// ══════════════════════════════════════
+// MODAL (shared, accessible from any module)
+// ══════════════════════════════════════
 function renderModal(){
   const r=S.refs.find(x=>x.id===S.sel); if(!r) return "";
   const e=S.editMode?S.editForm:r;
-
-  // checklist items: [label, field, options]
   const ckFields=[
     ["Referral Form","referral_form",BOOL],
     ["Permission for Assessment","permission_assessment",STAT],
-    ["Vineland","vineland",STAT],
-    ["SRS-2","srs2",STAT],
-    ["Attends School","attends_school",BOOL],
-    ["IEP Report","iep_report",BOOL],
+    ["Vineland","vineland",STAT],["SRS-2","srs2",STAT],
+    ["Attends School","attends_school",BOOL],["IEP Report","iep_report",BOOL],
     ["Autism Diagnosis Docs","autism_diagnosis",["Received","Requested","Awaiting","N/A"]],
     ["Intake Paperwork","intake_paperwork",["Signed","Emailed via Adobe","Awaiting","N/A"]]
   ];
+  const eOpt=(key,val,opts)=>`<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${opts.map(o=>{const c=sc(o);const a=val===o;return`<button class="edit-opt" onclick="S.editForm['${key}']='${o}';go()" style="border-color:${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"}">${o}</button>`;}).join("")}</div>`;
+  const eText=(key,val,ph="")=>`<input class="edit-input" value="${(val||"").replace(/"/g,"&quot;")}" oninput="S.editForm['${key}']=this.value" placeholder="${ph}">`;
+  const eSel=(key,val,opts)=>`<select class="edit-select" onchange="S.editForm['${key}']=this.value">${opts.map(o=>`<option ${val===o?"selected":""}>${o}</option>`).join("")}</select>`;
+  const eDate=(key,val)=>`<input type="date" class="edit-input" value="${val||""}" oninput="S.editForm['${key}']=this.value">`;
 
-  function viewRow(label, val){
-    return `<div class="info-row"><span class="info-label">${label}</span><span class="info-val">${val||"—"}</span></div>`;
-  }
-  function editTextField(key,val,placeholder=""){
-    return `<input class="edit-input" value="${(val||"").replace(/"/g,"&quot;")}" oninput="S.editForm['${key}']=this.value" placeholder="${placeholder}">`;
-  }
-  function editDateField(key,val){
-    return `<input type="date" class="edit-input" value="${val||""}" oninput="S.editForm['${key}']=this.value">`;
-  }
-  function editSelectField(key,val,opts){
-    return `<select class="edit-select" onchange="S.editForm['${key}']=this.value">${opts.map(o=>`<option ${val===o?"selected":""}>${o}</option>`).join("")}</select>`;
-  }
-  function editOptField(key,val,opts){
-    return `<div style="display:flex;gap:4px;flex-wrap:wrap;justify-content:flex-end">${opts.map(o=>{const c=sc(o);const a=val===o;return`<button class="edit-opt" onclick="S.editForm['${key}']='${o}';go()" style="border-color:${a?c:"var(--border)"};background:${a?c+"22":"var(--bg)"};color:${a?c:"var(--dim)"}">${o}</button>`;}	).join("")}</div>`;
-  }
-
-  const editBtnLabel = S.editMode ? "✏ Editing" : "✏ Edit Record";
-  const footLeft = r.status==="active" ? `
+  const footLeft=r.status==="active"?`
     <div style="display:flex;gap:8px;flex-wrap:wrap">
       <button class="btn-ghost" onclick="setStatus('${r.id}','non-responsive')" style="color:#ef4444;border-color:#ef444440;font-size:12px">Mark Non-Responsive</button>
       <button class="btn-ghost" onclick="setStatus('${r.id}','referred-out')" style="color:#8b5cf6;border-color:#8b5cf640;font-size:12px">Referred Out</button>
-    </div>` : `
-    <button onclick="restoreActive('${r.id}')" style="padding:8px 16px;border-radius:8px;border:1px solid #22c55e40;background:#22c55e15;color:#22c55e;font-size:12px;font-weight:700;cursor:pointer">↩ Restore Active</button>`;
+    </div>`:`<button onclick="setStatus('${r.id}','active')" style="padding:8px 16px;border-radius:8px;border:1px solid #22c55e40;background:#22c55e15;color:#22c55e;font-size:12px;font-weight:700;cursor:pointer">↩ Restore Active</button>`;
 
-  return `
-    <div class="overlay" onclick="S.sel=null;S.editMode=false;go()">
-      <div class="modal" onclick="event.stopPropagation()">
-        <div class="modal-head">
-          <div>
-            <div class="modal-title">${r.first_name} ${r.last_name}</div>
-            <div class="modal-sub">DOB: ${r.dob||"—"} · Received: ${r.date_received||"—"} · ${r.office||""}</div>
-          </div>
-          <div style="display:flex;align-items:center;gap:10px">
-            ${ring(pct(r))}
-            <button class="btn-edit ${S.editMode?"active":""}" onclick="
-              if(!S.editMode){S.editForm=Object.assign({},S.refs.find(x=>x.id===S.sel));S.editMode=true;go();}
-              else{S.editMode=false;go();}
-            ">${editBtnLabel}</button>
-            <button class="close-btn" onclick="S.sel=null;S.editMode=false;go()">×</button>
-          </div>
-        </div>
-        <div class="modal-body">
-          <div>
-            <div class="section-hdr">Caregiver</div>
-            ${S.editMode
-              ? `<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
-                  <div><div class="label">Name</div>${editTextField("caregiver",e.caregiver,"Full Name")}</div>
-                  <div><div class="label">Phone</div>${editTextField("caregiver_phone",e.caregiver_phone,"601-000-0000")}</div>
-                  <div><div class="label">Email</div>${editTextField("caregiver_email",e.caregiver_email,"email@example.com")}</div>
-                </div>`
-              : `${[["Name",r.caregiver],["Phone",r.caregiver_phone],["Email",r.caregiver_email]].map(([l,v])=>`
-                  <div style="margin-bottom:12px">
-                    <div class="label">${l}</div>
-                    <div style="color:#cbd5e1;font-size:14px">${v||"—"}</div>
-                  </div>`).join("")}`
-            }
-            <div class="section-hdr" style="margin-top:4px">Insurance</div>
-            ${S.editMode
-              ? `<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px">
-                  <div class="info-row"><span class="info-label">Primary</span>${editSelectField("insurance",e.insurance,INSURANCES)}</div>
-                  <div class="info-row"><span class="info-label">Secondary</span>${editSelectField("secondary_insurance",e.secondary_insurance,["None",...INSURANCES])}</div>
-                  <div class="info-row"><span class="info-label">Verified</span>${editOptField("insurance_verified",e.insurance_verified,BOOL)}</div>
-                </div>`
-              : `<div class="info-row"><span class="info-label">Primary</span><span class="info-val">${r.insurance||"—"}</span></div>
-                 <div class="info-row"><span class="info-label">Secondary</span><span class="info-val">${r.secondary_insurance||"—"}</span></div>
-                 <div class="info-row"><span class="info-label">Verified</span>${bdg(r.insurance_verified)}</div>`
-            }
-            <div class="section-hdr" style="margin-top:16px">Contact Log</div>
-            ${S.editMode
-              ? `<div style="display:flex;flex-direction:column;gap:8px">
-                  ${[["contact1","1st"],["contact2","2nd"],["contact3","3rd"]].map(([k,l])=>`
-                    <div class="info-row"><span class="info-label">${l} Contact</span>${editDateField(k,e[k])}</div>`).join("")}
-                </div>`
-              : `${[["1st",r.contact1],["2nd",r.contact2],["3rd",r.contact3]].map(([l,v])=>`
-                  <div class="info-row">
-                    <span class="info-label">${l} Contact</span>
-                    <span class="${v?"contact-val":"info-val"}">${v||"—"}</span>
-                  </div>`).join("")}`
-            }
-            ${S.editMode
-              ? `<div style="margin-top:12px">
-                  <div class="label">Date Received</div>
-                  ${editDateField("date_received",e.date_received)}
-                </div>
-                <div style="margin-top:10px">
-                  <div class="label">Office</div>
-                  ${editSelectField("office",e.office,OFFICES)}
-                </div>`:""
-            }
-          </div>
-          <div>
-            <div class="section-hdr">Intake Checklist</div>
-            ${ckFields.map(([l,key,opts])=>`
-              <div class="info-row">
-                <span class="info-label">${l}</span>
-                ${S.editMode?editOptField(key,e[key],opts):bdg(r[key])}
-              </div>`).join("")}
-            <div style="margin-top:14px">
-              <div class="label">Intake Personnel</div>
-              ${S.editMode
-                ? editSelectField("intake_personnel",e.intake_personnel,STAFF)
-                : `<div style="color:#a5b4fc;font-weight:700;font-size:15px;margin-top:4px">${r.intake_personnel||"—"}</div>`}
-            </div>
-            ${S.editMode
-              ? `<div style="margin-top:14px">
-                  <div class="label">Notes</div>
-                  <textarea class="edit-input" rows="3" oninput="S.editForm.notes=this.value" style="resize:vertical">${e.notes||""}</textarea>
-                </div>`
-              : (r.notes?`<div style="margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px"><div class="label" style="margin-bottom:6px">Notes</div><div style="color:var(--muted);font-size:13px">${r.notes}</div></div>`:"")
-            }
-          </div>
-        </div>
-        <div class="modal-foot">
-          ${footLeft}
-          <div style="display:flex;gap:8px">
-            ${S.editMode
-              ? `<button class="btn-ghost" onclick="S.editMode=false;go()">Cancel</button>
-                 <button class="btn-save" onclick="saveEdit()" ${S.updatingSel?"disabled":""}>
-                   ${S.updatingSel?"Saving…":"💾 Save Changes"}
-                 </button>`
-              : `<button class="btn-primary" onclick="S.sel=null;go()">Close</button>`
-            }
-          </div>
-        </div>
+  return `<div class="overlay" onclick="S.sel=null;S.editMode=false;go()"><div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title">${r.first_name} ${r.last_name}</div>
+        <div class="modal-sub">DOB: ${r.dob||"—"} · Received: ${r.date_received||"—"} · ${normalizeOffice(r.office)||""}${(r.office==="NEWTON"||r.office==="JACKSON")?` <span style="color:#f59e0b;font-size:11px">(prev. ${r.office})</span>`:""}</div>
       </div>
-    </div>`;
+      <div style="display:flex;align-items:center;gap:10px">
+        ${ring(pct(r))}
+        <button class="btn-edit ${S.editMode?"editing":""}" onclick="if(!S.editMode){S.editForm=Object.assign({},S.refs.find(x=>x.id===S.sel));S.editMode=true;go();}else{S.editMode=false;go();}">${S.editMode?"✏ Editing":"✏ Edit Record"}</button>
+        <button class="close-btn" onclick="S.sel=null;S.editMode=false;go()">×</button>
+      </div>
+    </div>
+    <div class="modal-body">
+      <div>
+        <div class="section-hdr">Caregiver</div>
+        ${S.editMode
+          ?`<div style="display:flex;flex-direction:column;gap:10px;margin-bottom:16px"><div><div class="label">Name</div>${eText("caregiver",e.caregiver,"Full Name")}</div><div><div class="label">Phone</div>${eText("caregiver_phone",e.caregiver_phone,"601-000-0000")}</div><div><div class="label">Email</div>${eText("caregiver_email",e.caregiver_email,"email@example.com")}</div></div>`
+          :`${[["Name",r.caregiver],["Phone",r.caregiver_phone],["Email",r.caregiver_email]].map(([l,v])=>`<div style="margin-bottom:12px"><div class="label">${l}</div><div style="color:#cbd5e1;font-size:14px">${v||"—"}</div></div>`).join("")}`}
+        <div class="section-hdr" style="margin-top:4px">Insurance</div>
+        ${S.editMode
+          ?`<div style="display:flex;flex-direction:column;gap:8px;margin-bottom:4px"><div class="info-row"><span class="info-label">Primary</span>${eSel("insurance",e.insurance,INSURANCES)}</div><div class="info-row"><span class="info-label">Secondary</span>${eSel("secondary_insurance",e.secondary_insurance,["None",...INSURANCES])}</div><div class="info-row"><span class="info-label">Verified</span>${eOpt("insurance_verified",e.insurance_verified,BOOL)}</div></div>`
+          :`<div class="info-row"><span class="info-label">Primary</span><span class="info-val">${r.insurance||"—"}</span></div><div class="info-row"><span class="info-label">Secondary</span><span class="info-val">${r.secondary_insurance||"—"}</span></div><div class="info-row"><span class="info-label">Verified</span>${bdg(r.insurance_verified)}</div>`}
+        <div class="section-hdr" style="margin-top:16px">Contact Log</div>
+        ${S.editMode
+          ?`<div style="display:flex;flex-direction:column;gap:8px">${[["contact1","1st"],["contact2","2nd"],["contact3","3rd"]].map(([k,l])=>`<div class="info-row"><span class="info-label">${l} Contact</span>${eDate(k,e[k])}</div>`).join("")}</div>`
+          :`${[["1st",r.contact1],["2nd",r.contact2],["3rd",r.contact3]].map(([l,v])=>`<div class="info-row"><span class="info-label">${l} Contact</span><span class="${v?"contact-val":"info-val"}">${v||"—"}</span></div>`).join("")}`}
+        ${S.editMode?`<div style="margin-top:12px"><div class="label">Date Received</div>${eDate("date_received",e.date_received)}</div><div style="margin-top:10px"><div class="label">Office</div>${eSel("office",e.office,OFFICES)}</div>`:""}
+      </div>
+      <div>
+        <div class="section-hdr">Intake Checklist</div>
+        ${ckFields.map(([l,key,opts])=>`<div class="info-row"><span class="info-label">${l}</span>${S.editMode?eOpt(key,e[key],opts):bdg(r[key])}</div>`).join("")}
+        <div style="margin-top:14px"><div class="label">Intake Personnel</div>
+          ${S.editMode?eSel("intake_personnel",e.intake_personnel,STAFF):`<div style="color:#a5b4fc;font-weight:700;font-size:15px;margin-top:4px">${r.intake_personnel||"—"}</div>`}
+        </div>
+        ${S.editMode?`<div style="margin-top:14px"><div class="label">Notes</div><textarea class="edit-input" rows="3" oninput="S.editForm.notes=this.value" style="resize:vertical">${e.notes||""}</textarea></div>`:(r.notes?`<div style="margin-top:12px;background:var(--bg);border:1px solid var(--border);border-radius:10px;padding:14px"><div class="label" style="margin-bottom:6px">Notes</div><div style="color:var(--muted);font-size:13px">${r.notes}</div></div>`:"")}
+      </div>
+    </div>
+    <div class="modal-foot">
+      ${footLeft}
+      <div style="display:flex;gap:8px">
+        ${S.editMode
+          ?`<button class="btn-ghost" onclick="S.editMode=false;go()">Cancel</button><button class="btn-save" onclick="saveEdit()" ${S.updatingSel?"disabled":""}>${S.updatingSel?"Saving…":"💾 Save Changes"}</button>`
+          :`<button class="btn-primary" onclick="S.sel=null;go()">Close</button>`}
+      </div>
+    </div>
+  </div></div>`;
 }
 
 load();
