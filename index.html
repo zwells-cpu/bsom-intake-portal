@@ -7,14 +7,25 @@
 <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;0,9..40,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-:root{
-  --bg:#080e1a;--surface:#0d1526;--surface2:#111d33;--surface3:#162038;
-  --border:#1a2840;--border2:#243450;
-  --text:#e2eaf8;--muted:#94a3b8;--dim:#4a607a;
-  --accent:#6366f1;--accent2:#8b5cf6;
-  --green:#22c55e;--yellow:#f59e0b;--orange:#fb923c;--red:#ef4444;
-  --sidebar-w:220px;
-}
+:root,[data-theme="dark"]{
+    --bg:#080e1a;
+    --surface:#0d1526;
+    --surface2:#111d33;
+    --surface3:#162038;
+    --border:#1a2840;
+    --border2:#243450;
+    --text:#e2eaf8;
+    --muted:#94a3b8;
+    --dim:#4a607a;
+    --accent:#6366f1;
+    --accent2:#8b5cf6;
+    --green:#22c55e;
+    --yellow:#f59e0b;
+    --orange:#fb923c;
+    --red:#ef4444;
+    --sidebar-w:220px;
+    --shadow:0 1px 3px rgba(0,0,0,0.4);
+  }
 body{background:var(--bg);color:var(--text);font-family:"DM Sans",system-ui,sans-serif;min-height:100vh;font-size:14px;line-height:1.5;overflow-x:hidden}
 input,select,textarea,button{outline:none;font-family:inherit}
 input::placeholder,textarea::placeholder{color:var(--dim)}
@@ -23,7 +34,7 @@ input::placeholder,textarea::placeholder{color:var(--dim)}
 ::-webkit-scrollbar-thumb{background:var(--border2);border-radius:4px}
 
 /* ── HOME SCREEN ── */
-.home-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 20% 50%,#6366f108 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#8b5cf608 0%,transparent 60%)}
+.home-screen{min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:40px 20px;background:radial-gradient(ellipse at 20% 50%,#6366f108 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,#8b5cf608 0%,transparent 60%);position:relative}
 .home-logo{width:90px;height:90px;border-radius:20px;overflow:hidden;background:white;display:flex;align-items:center;justify-content:center;margin-bottom:20px;box-shadow:0 0 0 1px #ffffff10,0 20px 60px rgba(0,0,0,0.4)}
 .home-logo img{width:90px;height:90px;object-fit:contain}
 .home-title{font-size:28px;font-weight:800;letter-spacing:-0.03em;margin-bottom:4px;text-align:center}
@@ -485,6 +496,39 @@ table { min-width: 600px; }
   .nav-item { min-width: 52px; }
 }
 
+
+/* ── Theme toggle ── */
+.theme-toggle{
+  display:flex;
+  align-items:center;
+  background:var(--surface2);
+  border:1px solid var(--border2);
+  border-radius:20px;
+  padding:3px;
+  gap:2px;
+  flex-shrink:0;
+}
+.theme-btn{
+  background:transparent;
+  border:none;
+  border-radius:16px;
+  padding:4px 10px;
+  font-size:12px;
+  cursor:pointer;
+  color:var(--muted);
+  font-weight:600;
+  transition:all 0.2s;
+  white-space:nowrap;
+  font-family:inherit;
+}
+.theme-btn.active{
+  background:var(--surface);
+  color:var(--text);
+  box-shadow:0 1px 3px rgba(0,0,0,0.15);
+}
+[data-theme="light"] .theme-btn.active{
+  box-shadow:0 1px 4px rgba(0,0,0,0.1);
+}
 </style>
 </head>
 <body>
@@ -528,6 +572,35 @@ let S = {
   assessData:[], assessLoading:false,
   assessSel:null, assessEditMode:false, assessEditForm:{},
 };
+
+// ── Theme system ──
+function themeToggleHTML(){
+  const t = S.theme||getTheme();
+  return '<div class="theme-toggle" id="theme-toggle">'
+    + '<button class="theme-btn ' + (t==="light"?"active":"") + '" onclick="setTheme(\'light\')">☀️ Light</button>'
+    + '<button class="theme-btn ' + (t==="dark"?"active":"") + '" onclick="setTheme(\'dark\')">🌙 Dark</button>'
+    + '</div>';
+}
+function getTheme(){ return localStorage.getItem("bsom-theme")||"dark"; }
+function setTheme(t){
+  localStorage.setItem("bsom-theme",t);
+  document.documentElement.setAttribute("data-theme",t);
+  S.theme=t; renderThemeToggle();
+}
+function initTheme(){
+  const t=getTheme();
+  document.documentElement.setAttribute("data-theme",t);
+  S.theme=t;
+}
+function renderThemeToggle(){
+  const el=document.getElementById("theme-toggle");
+  if(!el) return;
+  const t=S.theme||getTheme();
+  el.innerHTML=`
+    <button class="theme-btn ${t==="light"?"active":""}" onclick="setTheme('light')">☀️ Light</button>
+    <button class="theme-btn ${t==="dark"?"active":""}" onclick="setTheme('dark')">🌙 Dark</button>`;
+}
+
 
 function ef(){
   return {first_name:"",last_name:"",dob:"",caregiver:"",caregiver_phone:"",caregiver_email:"",
@@ -758,6 +831,12 @@ function render(){
 function renderHome(){
   return `
     <div class="home-screen">
+      <div style="position:absolute;top:20px;right:24px">
+        <div class="theme-toggle" id="theme-toggle-home">
+          <button class="theme-btn ${S.theme==="light"?"active":""}" onclick="setTheme('light');document.getElementById('theme-toggle-home').innerHTML=document.getElementById('theme-toggle-home').innerHTML">☀️ Light</button>
+          <button class="theme-btn ${S.theme==="dark"?"active":""}" onclick="setTheme('dark');document.getElementById('theme-toggle-home').innerHTML=document.getElementById('theme-toggle-home').innerHTML">🌙 Dark</button>
+        </div>
+      </div>
       <div class="home-logo"><img src="${LOGO_SRC}" alt="BSOM"></div>
       <div class="home-title">BSOM Intake Portal</div>
       <div class="home-sub">Behavioral Solutions of Mississippi -- Internal Staff Portal</div>
@@ -867,7 +946,7 @@ function renderModule(){
             ${S.module==="intake"?`<select style="background:var(--surface2);border:1px solid var(--border2);border-radius:7px;padding:4px 10px;color:var(--text);font-size:12px;font-weight:600" onchange="S.role=this.value;go()">${ALL_ROLES.map(r=>`<option ${S.role===r?"selected":""}>${r}</option>`).join("")}</select>`:"" }
             <span class="badge-pill" style="background:#22c55e18;color:#22c55e;border:1px solid #22c55e30">✓ ${active.length} Active</span>
             ${pending.length>0?`<span style="background:#f59e0b18;color:#f59e0b;border:1px solid #f59e0b30;border-radius:20px;padding:3px 12px;font-size:11.5px;font-weight:700">${pending.length} Pending Docs</span>`:""}
-            ${S.module==="assessment"?`<button class="btn-sm" onclick="loadAssessments()">↻ Refresh</button>`:`<button class="btn-sm" onclick="load()">↻ Refresh</button>`}
+            ${themeToggleHTML()}${S.module==="assessment"?`<button class="btn-sm" onclick="loadAssessments()">↻ Refresh</button>`:`<button class="btn-sm" onclick="load()">↻ Refresh</button>`}
           </div>
         </div>
         <div class="page">
@@ -2730,6 +2809,7 @@ function renderIntakeTable(){
   } else { go(); }
 }
 
+initTheme();
 load();
 
 // Test connection on home screen and show status
