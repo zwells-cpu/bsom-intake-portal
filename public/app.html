@@ -924,7 +924,7 @@ function renderHome(){
       </div>
       <div class="home-logo"><img src="${LOGO_SRC}" alt="BSOM"></div>
       <div class="home-title">BSOM Intake Portal</div>
-      <div class="home-sub">Behavioral Solutions of Mississippi -- Internal Staff Portal</div>
+      <div class="home-sub">Intake Operations Platform for Behavioral Solutions of Mississippi</div>
       <div id="conn-status" style="margin-top:-32px;margin-bottom:36px;font-size:11px;color:var(--dim)">
         Checking connection...
       </div>
@@ -2907,7 +2907,7 @@ async function testConnection(){
     });
     if(resp.ok){
       const data = await resp.json();
-      el.innerHTML = '<span style="color:#22c55e">● Connected</span> -- referrals table reachable';
+      el.innerHTML = '<span style="color:#22c55e">● Connected</span> -- System connected';
     } else {
       const err = await resp.text();
       el.innerHTML = '<span style="color:#ef4444">● Error '+resp.status+'</span> -- '+err.slice(0,120);

@@ -1,7 +1,7 @@
 export default function App() {
   return (
     <iframe
-      title="BSM Intake Portal"
+      title="Intake Operations Platform for Behavioral Solutions of Mississippi"
       src="/app.html"
       style={{
         width: "100%",
